@@ -1,27 +1,15 @@
-Licence Ti Racoon – Usage non commerciale et militante
-Version 1.0 – 2025
+Cet outil sert à la description des images sur les RS et permet de ne rien oublier. Il prévoit toutes les situations, même les communiqués de presse, qui sont en général publiés en jpeg.
 
-Copyright (c) 2025 Ti Racoon
+Attention, il est ici question d'accessibilité des réseaux sociaux. 
 
-Le présent logiciel et ses fichiers associés (le "Logiciel") sont mis à
-disposition gratuitement pour un usage :
+Donc oui, on fait mieux que 135 caractères maximum par image. 
 
-- personnel,
-- éducatif,
-- militant,
-- ou destiné aux personnes ayant besoin d’accessibilité,
+Mais vous verrez, c'est simple.
 
-à condition que cet usage ne soit **pas commercial**.
+On pense à tout le monde : celles et ceux qui ne voient plus du tout, celles et ceux dont la vue baisse, celles et ceux pour qui les contrastes ou certaines couleurs sont problématiques, celles et ceux qui connaissent la prosopagnosie, etc.
 
-Vous êtes autorisé à :
-- Utiliser le Logiciel dans vos projets non commerciaux.
-- Étudier, modifier, adapter et redistribuer le Logiciel de manière non commerciale.
-- Partager publiquement vos versions modifiées, à condition de conserver cette même licence.
+Cet outil contient également une barre d'accessibilité, testez-la, elle est faite pour cela. 
 
-Vous n’êtes PAS autorisé à :
-- Vendre, louer ou exploiter commercialement le Logiciel.
-- L'intégrer dans un service, une plateforme ou un produit payant.
-- Utiliser le Logiciel dans un contexte lucratif direct ou indirect.
+La navigation est également possible au clavier. 
 
-Aucune garantie n’est fournie. L’auteur décline toute responsabilité en cas
-de dommages liés à l’utilisation du Logiciel.
+
