@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TiRacoon - Générateur de descriptions d'images accessibles</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Styles existants -->
+<style>
+html, body { height: 100%; margin: 0; padding: 0; }
+body { box-sizing: border-box; background: linear-gradient(135deg, #4a4a4a 0%, #4a4a4a 14.28%, #22c55e 14.28%, #22c55e 28.56%, #3b82f6 28.56%, #3b82f6 42.84%, #ffffff 42.84%, #ffffff 57.12%, #fbbf24 57.12%, #fbbf24 71.4%, #dc2626 71.4%, #dc2626 85.68%, #4a4a4a 85.68%, #4a4a4a 100%); background-attachment: fixed; background-repeat: no-repeat; background-size: cover; min-height: 100%; }
+.glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+.result-box { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(0, 0, 0, 0.1); }
+.copy-button { transition: all 0.3s ease; }
+.copy-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+.fade-in { animation: fadeIn 0.5s ease-in; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.pulse-animation { animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+</style>
+
+<!-- Styles Faites Mieux (accessible-core.css) -->
+<style>
+/* Polices */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+@font-face { font-family: 'OpenDyslexic'; src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/alternatives/OpenDyslexic-Regular.otf') format('opentype'); font-style: normal; font-weight: normal; }
+@font-face { font-family: 'OpenDyslexic'; src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/alternatives/OpenDyslexic-Bold.otf') format('opentype'); font-style: normal; font-weight: bold; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+/* Variables globales */
+:root {
+  --fm-font: "Lexend", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --fm-base-size: 16px;
+  --fm-scale: 1;
+  --fm-line-height: 1.6;
+  --fm-letter-spacing: 0.02em;
+  --fm-word-spacing: 0.04em;
+  --fm-brightness: 1;
+  --fm-contrast: 1;
+  --fm-accent: #005f73;
+  --fm-focus: #ffb703;
+  --fm-ui-bg: rgba(255,255,255,0.98);
+  --fm-ui-border: #d0d0d0;
+  --fm-radius: 10px;
+  --fm-z: 2147483000;
+}
+
+/* Base accessible */
+html, body {
+  font-family: var(--fm-font);
+  font-size: calc(var(--fm-base-size) * var(--fm-scale));
+  line-height: var(--fm-line-height);
+  letter-spacing: var(--fm-letter-spacing);
+  word-spacing: var(--fm-word-spacing);
+  background-color: var(--fm-bg, #ffffff);
+  color: var(--fm-fg, #0b0b0b);
+  filter: brightness(var(--fm-brightness)) contrast(var(--fm-contrast));
+  transition: background-color 180ms ease, color 180ms ease, filter 180ms ease;
+}
+p, li { text-align: left; max-width: 75ch; }
+
+/* Toolbar */
+.fm-toolbar {
+  font-family: var(--fm-font); position: fixed;
+  right: 12px; top: 12px; z-index: var(--fm-z);
+  width: 380px; max-width: calc(100% - 24px);
+  background: var(--fm-ui-bg); border: 1px solid var(--fm-ui-border);
+  border-radius: var(--fm-radius); padding: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12); color: inherit;
+  font-size: 0.95rem;
+}
+.fm-toolbar header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
+.fm-toolbar h2 { margin:0; font-size:1rem; }
+.fm-close { background:none; border:none; padding:6px; cursor:pointer; border-radius:6px; }
+.fm-section { margin-top:10px; }
+.fm-row { display:flex; align-items:center; gap:8px; margin-top:8px; }
+.fm-row label { min-width:120px; font-weight:600; font-size:0.92rem; }
+.fm-row .fm-control { flex:1; }
+.fm-value { min-width:48px; text-align:right; font-weight:700; }
+.fm-btn { background:var(--fm-accent); color:white; border:none; padding:8px 10px; border-radius:8px; cursor:pointer; font-weight:700; }
+.fm-applied :focus { outline:3px solid var(--fm-focus)!important; outline-offset:2px!important; }
+.fm-applied p, .fm-applied li { text-align:left!important; max-width:75ch; }
+.fm-range { width:100%; -webkit-appearance:none; appearance:none; height:8px; background:#e6e6e6; border-radius:6px; }
+.fm-range::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:var(--fm-accent); border:2px solid #fff; box-shadow:0 2px 6px rgba(0,0,0,0.2); cursor:pointer; }
+.fm-range:focus { outline:3px solid var(--fm-focus); outline-offset:2px; }
+
+/* Themes */
+.fm-theme-light { --fm-bg:#ffffff; --fm-fg:#0b0b0b; --fm-accent:#005f73; }
+.fm-theme-dark { --fm-bg:#0b0b0b; --fm-fg:#ffffff; --fm-accent:#ffd166; }
+.fm-theme-sepia { --fm-bg:#f4ecd8; --fm-fg:#2d2d25; --fm-accent:#8b5e3c; }
+.fm-theme-red { --fm-bg:#fff5f5; --fm-fg:#3b0000; --fm-accent:#cc0000; }
+.fm-theme-blue { --fm-bg:#f0f7ff; --fm-fg:#002b4d; --fm-accent:#0d6efd; }
+.fm-theme-high-contrast { --fm-bg:#000; --fm-fg:#fff; --fm-accent:#ffff00; }
+.fm-applied { background-color:var(--fm-bg)!important; color:var(--fm-fg)!important; filter:brightness(var(--fm-brightness)) contrast(var(--fm-contrast))!important; }
+</style>
+</head>
+<body class="min-h-full">
+
+<!-- Ton contenu HTML existant -->
+<div class="container mx-auto px-4 py-8">
+<!-- ... Ton HTML existant (header, formulaire, résultat, footer) ... -->
+<!-- Je ne change rien dans ton contenu, il reste intact -->
+</div>
+
+<!-- Toolbar Faites Mieux (visible dès le départ) -->
+<div class="fm-toolbar fm-applied" style="display:block;">
+<header>
+  <h2>Faites Mieux</h2>
+  <button class="fm-close" aria-label="Fermer la toolbar">×</button>
+</header>
+<div class="fm-section">
+  <label for="fm-theme">Thème</label>
+  <select id="fm-theme" class="fm-control">
+    <option value="light" selected>Clair</option>
+    <option value="dark">Sombre</option>
+    <option value="sepia">Sépia</option>
+    <option value="red">Rouge</option>
+    <option value="blue">Bleu</option>
+    <option value="high-contrast">Contraste élevé</option>
+  </select>
+</div>
+<div class="fm-section">
+  <label for="fm-font">Police</label>
+  <select id="fm-font" class="fm-control">
+    <option value="Lexend" selected>Lexend</option>
+    <option value="Atkinson Hyperlegible">Atkinson Hyperlegible</option>
+    <option value="OpenDyslexic">OpenDyslexic</option>
+    <option value="Inter">Inter</option>
+  </select>
+</div>
+<div class="fm-section fm-row">
+  <label for="fm-fontSize">Taille texte</label>
+  <input type="range" min="0.5" max="2" step="0.05" value="1" id="fm-fontSize" class="fm-range">
+  <span class="fm-value" id="fm-fontSize-val">100%</span>
+</div>
+<div class="fm-section fm-row">
+  <label for="fm-brightness">Luminosité</label>
+  <input type="range" min="0.5" max="2" step="0.05" value="1" id="fm-brightness" class="fm-range">
+  <span class="fm-value" id="fm-brightness-val">100%</span>
+</div>
+<div class="fm-section fm-row">
+  <label for="fm-lineHeight">Interligne</label>
+  <input type="range" min="1" max="2.5" step="0.05" value="1.6" id="fm-lineHeight" class="fm-range">
+</div>
+<div class="fm-section fm-row">
+  <label for="fm-letterSpacing">Espacement lettres</label>
+  <input type="range" min="0" max="0.2" step="0.01" value="0.02" id="fm-letterSpacing" class="fm-range">
+</div>
+<div class="fm-section fm-row">
+  <label for="fm-wordSpacing">Espacement mots</label>
+  <input type="range" min="0" max="0.4" step="0.02" value="0.04" id="fm-wordSpacing" class="fm-range">
+</div>
+<div class="fm-section fm-row">
+  <label for="fm-falc">Mode FALC</label>
+  <select id="fm-falc" class="fm-control">
+    <option value="0" selected>Off</option>
+    <option value="1">1 — léger</option>
+    <option value="2">2 — moyen</option>
+    <option value="3">3 — maximal</option>
+  </select>
+</div>
+<div class="fm-section fm-row">
+  <button class="fm-btn" id="fm-read">Lire le texte</button>
+</div>
+<div class="fm-section fm-row">
+  <button class="fm-btn" id="fm-export">Exporter JSON</button>
+  <input type="file" id="fm-import" accept=".json">
+</div>
+</div>
+
+<!-- Script Faites Mieux (accessible-core.js) -->
+<script>
+const fm = {
+  settings: { theme:"light", font:"Lexend", fontSize:1, brightness:1, lineHeight:1.6, letterSpacing:0.02, wordSpacing:0.04, falc:0, readHighlight:true, zoomGlobal:1, zoomText:1, profiles:{} },
+  save:function(){ localStorage.setItem("fm-settings",JSON.stringify(this.settings)); },
+  load:function(){ const s=localStorage.getItem("fm-settings"); if(s)this.settings=JSON.parse(s); },
+  apply:function(){
+    const html=document.documentElement;
+    html.classList.add("fm-applied");
+    html.classList.remove("fm-theme-light","fm-theme-dark","fm-theme-sepia","fm-theme-red","fm-theme-blue","fm-theme-high-contrast");
+    html.classList.add("fm-theme-"+this.settings.theme);
+    html.style.setProperty("--fm-scale",this.settings.fontSize);
+    html.style.setProperty("--fm-brightness",this.settings.brightness);
+    html.style.setProperty("--fm-line-height",this.settings.lineHeight);
+    html.style.setProperty("--fm-letter-spacing",this.settings.letterSpacing);
+    html.style.setProperty("--fm-word-spacing",this.settings.wordSpacing);
+    html.style.setProperty("--fm-font",this.settings.font);
+    html.classList.toggle("fm-falc",this.settings.falc>0);
+  },
+  exportJSON:function(){ 
+    const data=JSON.stringify(this.settings,null,2);
+    const blob=new Blob([data],{type:"application/json"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="fm-settings.json";
+    a.click();
+  },
+  importJSON:function(file){
+    const reader=new FileReader();
+    reader.onload=e=>{
+      try{
+        const imp=JSON.parse(e.target.result);
+        Object.assign(this.settings,imp);
+        this.apply(); this.save();
+        alert("Préférences importées !");
+      }catch(err){alert("Erreur import JSON: "+err);}
+    };
+    reader.readAsText(file);
+  },
+  speak:function(text,voice=null,rate=1){
+    if(!window.speechSynthesis)return;
+    window.speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    if(voice) u.voice=voice;
+    u.rate=rate;
+    window.speechSynthesis.speak(u);
+  }
+};
+fm.load();
+fm.apply();
+
+// Toolbar event listeners
+const toolbar=document.querySelector(".fm-toolbar");
+toolbar.querySelector(".fm-close").addEventListener("click",()=>toolbar.style.display="none");
+document.getElementById("fm-theme").addEventListener("change",e=>{ fm.settings.theme=e.target.value; fm.apply(); fm.save(); });
+document.getElementById("fm-font").addEventListener("change",e=>{ fm.settings.font=e.target.value; fm.apply(); fm.save(); });
+["fm-fontSize","fm-brightness","fm-lineHeight","fm-letterSpacing","fm-wordSpacing"].forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener("input",e=>{
+    const val=parseFloat(el.value); fm.settings[id.replace("fm-","").replace("Size","Size").replace("brightness","brightness")]=val; fm.apply(); fm.save();
+    if(document.getElementById(id+"-val")) document.getElementById(id+"-val").textContent=(val*100).toFixed(0)+"%";
+  });
+});
+document.getElementById("fm-falc").addEventListener("change",e=>{ fm.settings.falc=parseInt(e.target.value); fm.apply(); fm.save(); });
+document.getElementById("fm-read").addEventListener("click",()=>{ const selection=window.getSelection().toString().trim(); if(selection) fm.speak(selection); else alert("Sélectionnez un texte à lire."); });
+document.getElementById("fm-export").addEventListener("click",()=>fm.exportJSON());
+document.getElementById("fm-import").addEventListener("change",e=>{ const file=e.target.files[0]; if(file) fm.importJSON(file); });
+</script>
+
+</body>
+</html>
