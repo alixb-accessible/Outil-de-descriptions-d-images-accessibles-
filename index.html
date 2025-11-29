@@ -1,204 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TiRacoon - Générateur de descriptions d'images accessibles</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Faites Mieux CSS -->
-    <style>
-/* Faites Mieux, par Ti Racoon - accessible-core.css */
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TiRacoon - Générateur de descriptions d'images accessibles</title>
 
-/* POLICES ACCESSIBLES (CDN) */
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
-@font-face {
-    font-family: 'OpenDyslexic';
-    src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/alternatives/OpenDyslexic-Regular.otf') format('opentype');
-    font-style: normal; font-weight: normal;
-}
-@font-face {
-    font-family: 'OpenDyslexic';
-    src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/alternatives/OpenDyslexic-Bold.otf') format('opentype');
-    font-style: normal; font-weight: bold;
-}
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+  <!-- Tailwind CDN (conserve si tu veux) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-/* Variables globales */
-:root {
-  --fm-font: "Lexend", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --fm-base-size: 16px;
-  --fm-scale: 1;
-  --fm-line-height: 1.6;
-  --fm-letter-spacing: 0.02em;
-  --fm-word-spacing: 0.04em;
-  --fm-brightness: 1;
-  --fm-contrast: 1;
-  --fm-accent: #005f73;
-  --fm-focus: #ffb703;
-  --fm-ui-bg: rgba(255,255,255,0.98);
-  --fm-ui-border: #d0d0d0;
-  --fm-radius: 10px;
-  --fm-z: 2147483000;
-}
-
-/* Base accessible */
-html, body {
-  margin: 0; padding: 0;
-  font-family: var(--fm-font);
-  font-size: calc(var(--fm-base-size) * var(--fm-scale));
-  line-height: var(--fm-line-height);
-  letter-spacing: var(--fm-letter-spacing);
-  word-spacing: var(--fm-word-spacing);
-  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-  background-color: var(--fm-bg, #ffffff);
-  color: var(--fm-fg, #0b0b0b);
-  filter: brightness(var(--fm-brightness)) contrast(var(--fm-contrast));
-  transition: background-color 180ms ease, color 180ms ease, filter 180ms ease;
-}
-
-p, li { text-align: left; max-width: 75ch; }
-
-/* Skip link */
-.fm-skip-link {
-  position: absolute; left: 8px; top: -48px;
-  background: #fff200; color: #000; padding: 8px 10px; border-radius: 4px;
-  z-index: calc(var(--fm-z) + 100); box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-  text-decoration: none;
-}
-.fm-skip-link:focus { top: 8px; outline: none; }
-
-/* Toolbar container */
-.fm-toolbar {
-  font-family: var(--fm-font); position: fixed;
-  right: 12px; top: 12px; z-index: var(--fm-z);
-  width: 380px; max-width: calc(100% - 24px);
-  background: var(--fm-ui-bg); border: 1px solid var(--fm-ui-border);
-  border-radius: var(--fm-radius); padding: 14px;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.12); color: inherit;
-  font-size: 0.95rem;
-}
-@media (max-width: 420px) { .fm-toolbar { left: 12px; right: 12px; width: auto; top: 12px; } }
-
-.fm-toolbar header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
-.fm-toolbar h2 { margin:0; font-size:1rem; }
-.fm-close { background:none; border:none; padding:6px; cursor:pointer; border-radius:6px; font-size:1.5rem; }
-.fm-close:focus { outline:3px solid var(--fm-focus); outline-offset:2px; }
-
-.fm-section { margin-top:10px; }
-.fm-row { display:flex; align-items:center; gap:8px; margin-top:8px; }
-.fm-row label { min-width:120px; font-weight:600; font-size:0.92rem; }
-.fm-row .fm-control { flex:1; }
-
-.fm-control { 
-  padding: 8px 10px;
-  border: 1px solid var(--fm-ui-border);
-  border-radius: 6px;
-  background: white;
-  color: inherit;
-  font-family: inherit;
-}
-.fm-control:focus { outline:3px solid var(--fm-focus); outline-offset:2px; }
-
-input[type="range"] { 
-  width:100%; -webkit-appearance:none; appearance:none; 
-  height:8px; background:#e6e6e6; border-radius:6px; 
-}
-input[type="range"]::-webkit-slider-thumb { 
-  -webkit-appearance:none; width:18px; height:18px; 
-  border-radius:50%; background:var(--fm-accent); 
-  border:2px solid #fff; box-shadow:0 2px 6px rgba(0,0,0,0.2); 
-  cursor:pointer; 
-}
-input[type="range"]::-moz-range-thumb {
-  width:18px; height:18px; 
-  border-radius:50%; background:var(--fm-accent); 
-  border:2px solid #fff; box-shadow:0 2px 6px rgba(0,0,0,0.2); 
-  cursor:pointer;
-}
-input[type="range"]:focus { outline:3px solid var(--fm-focus); outline-offset:2px; }
-
-.fm-btn { 
-  background:var(--fm-accent); color:white; border:none; 
-  padding:8px 10px; border-radius:8px; cursor:pointer; 
-  font-weight:700; min-height: 44px;
-}
-.fm-btn:focus { outline:3px solid var(--fm-focus); outline-offset:2px; }
-
-input[type="file"] {
-  padding: 8px;
-  border: 1px solid var(--fm-ui-border);
-  border-radius: 6px;
-  background: white;
-  cursor: pointer;
-}
-input[type="file"]:focus { outline:3px solid var(--fm-focus); outline-offset:2px; }
-
-.fm-value { min-width:48px; text-align:right; font-weight:700; }
-.fm-sr-only { 
-  position:absolute!important;height:1px;width:1px;
-  overflow:hidden;clip:rect(1px,1px,1px,1px);
-  white-space:nowrap;border:0;padding:0;margin:-1px; 
-}
-.fm-applied :focus { 
-  outline:3px solid var(--fm-focus)!important; 
-  outline-offset:2px!important; 
-}
-.fm-highlight { background:#fff06b; border-radius:2px; }
-.fm-applied p, .fm-applied li { text-align:left!important; max-width:75ch; }
-.fm-toolbar button, .fm-toolbar input, .fm-toolbar select { min-height:44px; }
-
-/* Themes */
-.fm-theme-light { --fm-bg:#ffffff; --fm-fg:#0b0b0b; --fm-accent:#005f73; }
-.fm-theme-dark { --fm-bg:#0b0b0b; --fm-fg:#ffffff; --fm-accent:#ffd166; }
-.fm-theme-sepia { --fm-bg:#f4ecd8; --fm-fg:#2d2d25; --fm-accent:#8b5e3c; }
-.fm-theme-red { --fm-bg:#fff5f5; --fm-fg:#3b0000; --fm-accent:#cc0000; }
-.fm-theme-blue { --fm-bg:#f0f7ff; --fm-fg:#002b4d; --fm-accent:#0d6efd; }
-.fm-theme-high-contrast { --fm-bg:#000; --fm-fg:#fff; --fm-accent:#ffff00; }
-.fm-applied { 
-  background-color:var(--fm-bg)!important; 
-  color:var(--fm-fg)!important; 
-  filter:brightness(var(--fm-brightness)) contrast(var(--fm-contrast))!important; 
-}
-
-/* FALC / Lisibilité avancée */
-.fm-falc .fm-toolbar .fm-complex { display:none!important; }
-.fm-falc .fm-toolbar { font-size:1.05rem; }
-.fm-falc .fm-toolbar .fm-simplified { display:inline!important; }
-.fm-falc .fm-toolbar .fm-verbose { display:none!important; }
-.fm-falc * { 
-  font-size:calc(var(--fm-base-size)*1.2)!important; 
-  line-height:1.9!important; 
-  letter-spacing:0.04em!important; 
-  word-spacing:0.08em!important; 
-}
-
-/* Règles de lecture, bordures blocs */
-.fm-read-ruler { 
-  position:fixed; left:0; right:0; height:2px; 
-  background:rgba(255,180,0,0.9); pointer-events:none; 
-  z-index:calc(var(--fm-z)+10); display:none; 
-}
-.fm-read-ruler.visible { display:block; }
-.fm-block-borders * { outline:1px dashed rgba(0,0,0,0.12); }
-
-/* Footer signature */
-.fm-footer { 
-  margin-top:18px; font-weight:600; 
-  text-align:center; font-size:0.92rem; 
-}
-
-/* Styles originaux du générateur */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    box-sizing: border-box;
-    background: linear-gradient(135deg, 
+  <!-- CSS de la page + Faites Mieux (intégré) -->
+  <style>
+    /* --- Page styles (origine) --- */
+    html, body { height:100%; margin:0; padding:0; }
+    body {
+      box-sizing: border-box;
+      background: linear-gradient(135deg,
         #4a4a4a 0%, #4a4a4a 14.28%,
         #22c55e 14.28%, #22c55e 28.56%,
         #3b82f6 28.56%, #3b82f6 42.84%,
@@ -206,885 +22,697 @@ body {
         #fbbf24 57.12%, #fbbf24 71.4%,
         #dc2626 71.4%, #dc2626 85.68%,
         #4a4a4a 85.68%, #4a4a4a 100%);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100%;
-}
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height:100%;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .glass-effect { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.3); }
+    .result-box { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border:1px solid rgba(0,0,0,0.1); }
+    .copy-button { transition: all .3s ease; }
+    .copy-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+    .fade-in { animation: fadeIn .5s ease-in; }
+    @keyframes fadeIn { from{opacity:0; transform: translateY(20px)} to{opacity:1; transform: translateY(0)} }
+    .pulse-animation { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.7} }
 
-.glass-effect {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+    /* --- Faites Mieux (accessible-core.css) --- */
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+    @font-face { font-family: 'OpenDyslexic'; src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/alternatives/OpenDyslexic-Regular.otf') format('opentype'); font-weight:normal; font-style:normal; }
+    @font-face { font-family: 'OpenDyslexic'; src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/alternatives/OpenDyslexic-Bold.otf') format('opentype'); font-weight:bold; font-style:normal; }
 
-.result-box {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
+    :root{
+      --fm-font: "Lexend", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --fm-base-size:16px;
+      --fm-scale:1;
+      --fm-line-height:1.6;
+      --fm-letter-spacing:0.02em;
+      --fm-word-spacing:0.04em;
+      --fm-brightness:1;
+      --fm-contrast:1;
+      --fm-accent:#005f73;
+      --fm-focus:#ffb703;
+      --fm-ui-bg: rgba(255,255,255,0.98);
+      --fm-ui-border:#d0d0d0;
+      --fm-radius:10px;
+      --fm-z:2147483000;
+    }
 
-.copy-button {
-    transition: all 0.3s ease;
-}
+    html, body {
+      font-family: var(--fm-font);
+      font-size: calc(var(--fm-base-size) * var(--fm-scale));
+      line-height: var(--fm-line-height);
+      letter-spacing: var(--fm-letter-spacing);
+      word-spacing: var(--fm-word-spacing);
+      background-color: var(--fm-bg,#ffffff);
+      color: var(--fm-fg,#0b0b0b);
+      filter: brightness(var(--fm-brightness)) contrast(var(--fm-contrast));
+      transition: background-color 180ms ease, color 180ms ease, filter 180ms ease;
+    }
+    p, li { text-align:left; max-width:75ch; }
 
-.copy-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+    .fm-skip-link{ position:absolute; left:8px; top:-48px; background:#fff200; color:#000; padding:8px 10px; border-radius:4px; z-index:calc(var(--fm-z)+100); box-shadow:0 2px 6px rgba(0,0,0,.18); text-decoration:none; }
+    .fm-skip-link:focus{ top:8px; outline:none; }
 
-.fade-in {
-    animation: fadeIn 0.5s ease-in;
-}
+    .fm-toolbar{ font-family:var(--fm-font); position:fixed; right:12px; top:12px; z-index:var(--fm-z); width:380px; max-width:calc(100% - 24px); background:var(--fm-ui-bg); border:1px solid var(--fm-ui-border); border-radius:var(--fm-radius); padding:14px; box-shadow:0 8px 28px rgba(0,0,0,.12); color:inherit; font-size:.95rem; }
+    @media (max-width:420px){ .fm-toolbar{ left:12px; right:12px; width:auto; top:12px; } }
+    .fm-toolbar header{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
+    .fm-toolbar h2{ margin:0; font-size:1rem; }
+    .fm-close{ background:none; border:none; padding:6px; cursor:pointer; border-radius:6px; }
+    .fm-close:focus{ outline:3px solid var(--fm-focus); outline-offset:2px; }
+    .fm-section{ margin-top:10px; }
+    .fm-row{ display:flex; align-items:center; gap:8px; margin-top:8px; }
+    .fm-row label{ min-width:120px; font-weight:600; font-size:.92rem; }
+    .fm-range{ width:100%; appearance:none; height:8px; background:#e6e6e6; border-radius:6px; }
+    .fm-range::-webkit-slider-thumb{ width:18px; height:18px; border-radius:50%; background:var(--fm-accent); border:2px solid #fff; box-shadow:0 2px 6px rgba(0,0,0,.2); cursor:pointer; }
+    .fm-range:focus{ outline:3px solid var(--fm-focus); outline-offset:2px; }
+    .fm-btn{ background:var(--fm-accent); color:white; border:none; padding:8px 10px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .fm-btn:focus{ outline:3px solid var(--fm-focus); outline-offset:2px; }
+    .fm-value{ min-width:48px; text-align:right; font-weight:700; }
+    .fm-sr-only{ position:absolute!important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; border:0; padding:0; margin:-1px; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    .fm-theme-light{ --fm-bg:#ffffff; --fm-fg:#0b0b0b; --fm-accent:#005f73; }
+    .fm-theme-dark{ --fm-bg:#0b0b0b; --fm-fg:#ffffff; --fm-accent:#ffd166; }
+    .fm-theme-sepia{ --fm-bg:#f4ecd8; --fm-fg:#2d2d25; --fm-accent:#8b5e3c; }
+    .fm-theme-red{ --fm-bg:#fff5f5; --fm-fg:#3b0000; --fm-accent:#cc0000; }
+    .fm-theme-blue{ --fm-bg:#f0f7ff; --fm-fg:#002b4d; --fm-accent:#0d6efd; }
+    .fm-theme-high-contrast{ --fm-bg:#000; --fm-fg:#fff; --fm-accent:#ffff00; }
+    .fm-applied{ background-color:var(--fm-bg)!important; color:var(--fm-fg)!important; filter:brightness(var(--fm-brightness)) contrast(var(--fm-contrast))!important; }
 
-.pulse-animation {
-    animation: pulse 2s infinite;
-}
+    .fm-falc .fm-toolbar .fm-complex{ display:none!important; }
+    .fm-falc .fm-toolbar{ font-size:1.05rem; }
+    .fm-falc *{ font-size:calc(var(--fm-base-size) * 1.2)!important; line-height:1.9!important; letter-spacing:0.04em!important; word-spacing:0.08em!important; }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-}
-    </style>
+    .fm-read-ruler{ position:fixed; left:0; right:0; height:2px; background:rgba(255,180,0,0.9); pointer-events:none; z-index:calc(var(--fm-z)+10); display:none; }
+    .fm-read-ruler.visible{ display:block; }
+
+    /* focus improvements for keyboard users */
+    :focus { outline: 3px solid var(--fm-focus); outline-offset: 2px; }
+    /* ensure readable default contrast on small UI pieces */
+    .glass-effect input, .glass-effect textarea, .glass-effect select { color: inherit; background: #fff; }
+  </style>
 </head>
 <body class="min-h-full">
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <div class="bg-white p-6 rounded-lg mx-auto max-w-2xl">
-                <h1 class="text-4xl md:text-5xl font-bold text-black mb-4">
-                    Outil de Description d'Images
-                </h1>
-                <p class="text-xl text-black mb-2">Créez des descriptions accessibles pour vos visuels</p>
-                <p class="text-sm text-black">Créé par TiRacoon</p>
-            </div>
-        </div>
 
-        <!-- Main Form -->
-        <div class="max-w-4xl mx-auto">
-            <form id="descriptionForm" class="space-y-6">
-                <!-- Type de contenu -->
-                <div class="glass-effect rounded-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Type de contenu</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
-                            <input type="radio" name="contentType" value="image" class="text-blue-500 focus:ring-blue-500">
-                            <div>
-                                <div class="font-medium">Image/Visuel</div>
-                                <div class="text-sm text-gray-600">Photo, illustration, graphique, infographie</div>
-                            </div>
-                        </label>
-                        <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
-                            <input type="radio" name="contentType" value="press" class="text-blue-500 focus:ring-blue-500">
-                            <div>
-                                <div class="font-medium">Communiqué de presse</div>
-                                <div class="text-sm text-gray-600">Document texte, article, communiqué</div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+  <a href="#descriptionForm" class="fm-skip-link">Aller au formulaire</a>
 
-                <!-- Section Image/Visuel -->
-                <div id="imageSection" class="hidden">
-                    <!-- Description de l'image -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</h3>
-                        <div class="space-y-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="imageTypeSelect" class="block text-sm font-medium text-gray-800 mb-2">Type d'image</label>
-                                    <select 
-                                        id="imageTypeSelect" 
-                                        class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    >
-                                        <option value="">Sélectionner...</option>
-                                        <option value="photo">Photo</option>
-                                        <option value="illustration">Illustration</option>
-                                        <option value="graphique">Graphique</option>
-                                        <option value="infographie">Infographie</option>
-                                        <option value="capture">Capture d'écran</option>
-                                        <option value="dessin">Dessin</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="imageFormat" class="block text-sm font-medium text-gray-800 mb-2">Format</label>
-                                    <select 
-                                        id="imageFormat" 
-                                        class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    >
-                                        <option value="">Sélectionner...</option>
-                                        <option value="9/16">9/16 (story/ TikTok/Réel)</option>
-                                        <option value="16/9">16/9 (vignette YouTube, visuel Twitter (X))</option>
-                                        <option value="carré">Carré (1/1)</option>
-                                        <option value="insta">Insta (4/5)</option>
-                                        <option value="bannière">Bannière (FB, X, Bluesky ... : préciser)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label for="generalDescription" class="block text-sm font-medium text-gray-800 mb-2">Description générale</label>
-                                <textarea 
-                                    id="generalDescription" 
-                                    rows="3" 
-                                    class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    placeholder="Décrivez l'image de manière générale..."
-                                ></textarea>
-                            </div>
-                            
-                            <div>
-                                <label for="background" class="block text-sm font-medium text-gray-800 mb-2">Arrière-plan</label>
-                                <textarea 
-                                    id="background" 
-                                    rows="2" 
-                                    class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    placeholder="Décrivez l'arrière-plan..."
-                                ></textarea>
-                            </div>
-                            
-                            <div>
-                                <label for="foreground" class="block text-sm font-medium text-gray-800 mb-2">Premier plan</label>
-                                <textarea 
-                                    id="foreground" 
-                                    rows="2" 
-                                    class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    placeholder="Décrivez le premier plan..."
-                                ></textarea>
-                            </div>
-                            
-                            <div>
-                                <label for="messageText" class="block text-sm font-medium text-gray-800 mb-2">Message</label>
-                                <textarea 
-                                    id="messageText" 
-                                    rows="3" 
-                                    class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    placeholder="Quel est le message écrit ?"
-                                ></textarea>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-800 mb-3">Écriture</label>
-                                    <div class="space-y-2">
-                                        <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                            <input type="radio" name="textCase" value="minuscules" class="text-blue-500 focus:ring-blue-500">
-                                            <span>Minuscules</span>
-                                        </label>
-                                        <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                            <input type="radio" name="textCase" value="majuscules" class="text-blue-500 focus:ring-blue-500">
-                                            <span>Majuscules</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="fontColor" class="block text-sm font-medium text-gray-800 mb-2">Couleur de la police</label>
-                                    <input 
-                                        type="text" 
-                                        id="fontColor" 
-                                        class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        placeholder="Ex: blanc, noir, rouge..."
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Logo et emplacement -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Logos et emplacement</h3>
-                        <div class="space-y-4">
-                            <!-- Logo principal -->
-                            <div>
-                                <label class="flex items-center space-x-2 text-gray-800 cursor-pointer mb-3">
-                                    <input type="checkbox" id="hasMainLogo" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span class="font-medium">Logo principal</span>
-                                </label>
-                                <div id="mainLogoSection" class="hidden ml-6 space-y-3">
-                                    <div>
-                                        <label for="mainLogoDesc" class="block text-sm font-medium text-gray-800 mb-2">Description du logo</label>
-                                        <input 
-                                            type="text" 
-                                            id="mainLogoDesc" 
-                                            class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            placeholder="Ex: Logo de l'entreprise XYZ"
-                                        >
-                                    </div>
-                                    <div>
-                                        <label for="mainLogoLocation" class="block text-sm font-medium text-gray-800 mb-2">Emplacement</label>
-                                        <input 
-                                            type="text" 
-                                            id="mainLogoLocation" 
-                                            class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            placeholder="Ex: en haut à gauche"
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Logos réseaux sociaux -->
-                            <div>
-                                <label class="flex items-center space-x-2 text-gray-800 cursor-pointer mb-3">
-                                    <input type="checkbox" id="hasSocialLogos" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span class="font-medium">Logos réseaux sociaux</span>
-                                </label>
-                                <div id="socialLogosSection" class="hidden ml-6 space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-800 mb-2">Sélectionnez les réseaux présents</label>
-                                        <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
-                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="Facebook">
-                                                <span>Facebook</span>
-                                            </label>
-                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="Twitter/X">
-                                                <span>Twitter/X</span>
-                                            </label>
-                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="Instagram">
-                                                <span>Instagram</span>
-                                            </label>
-                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="LinkedIn">
-                                                <span>LinkedIn</span>
-                                            </label>
-                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="YouTube">
-                                                <span>YouTube</span>
-                                            </label>
-                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="TikTok">
-                                                <span>TikTok</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="socialLogosLocation" class="block text-sm font-medium text-gray-800 mb-2">Emplacement des logos sociaux</label>
-                                        <input 
-                                            type="text" 
-                                            id="socialLogosLocation" 
-                                            class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            placeholder="Ex: en bas à droite"
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Section Communiqué de presse -->
-                <div id="pressSection" class="hidden">
-                    <!-- Situation du communiqué -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Situation du communiqué</h3>
-                        <div class="space-y-4">
-                            <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
-                                <input type="radio" name="pressSituation" value="new" class="text-blue-500 focus:ring-blue-500">
-                                <div>
-                                    <div class="font-medium">Nouveau communiqué</div>
-                                    <div class="text-sm text-gray-600">(pas encore de lien accessible)</div>
-                                </div>
-                            </label>
-                            <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
-                                <input type="radio" name="pressSituation" value="existing" class="text-blue-500 focus:ring-blue-500">
-                                <div>
-                                    <div class="font-medium">Communiqué avec lien accessible existant</div>
-                                    <div class="text-sm text-gray-600">Vous avez déjà un lien textup.fr</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Titre -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Titre du communiqué</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label for="pressTitle" class="block text-sm font-medium text-gray-800 mb-2">Titre principal</label>
-                                <input 
-                                    type="text" 
-                                    id="pressTitle" 
-                                    class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    placeholder="Ex: Ministère du handicap ? Encore un oubli de Sébastien Lecornu II ?"
-                                >
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Description de l'image -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label for="pressImageDesc" class="block text-sm font-medium text-gray-800 mb-2">Décrivez le papier à en-tête, l'instance dont émane le communiqué...</label>
-                                <textarea 
-                                    id="pressImageDesc" 
-                                    rows="3" 
-                                    class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    placeholder="Ex: Document officiel avec en-tête du Ministère des Solidarités et de la Santé..."
-                                ></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Texte du communiqué -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Texte du communiqué</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label for="pressContent" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le texte complet à envoyer sur textup.fr...</label>
-                                <textarea 
-                                    id="pressContent" 
-                                    rows="8" 
-                                    class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
-                                    placeholder="Collez ici le texte intégral du communiqué de presse... (aucune limite de caractères)"
-                                ></textarea>
-                            </div>
-                            
-                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
-                                <p class="text-gray-800 mb-3"><strong>Étape suivante :</strong> Copiez ce texte et envoyez-le sur textup.fr</p>
-                                <p class="text-sm text-gray-700 mb-3">
-                                    <strong>Qu'est-ce que textup.fr ?</strong> C'est un hébergeur de texte gratuit qui permet de s'affranchir des limites de caractères des réseaux sociaux.
-                                </p>
-                                <div class="flex gap-3">
-                                    <button 
-                                        type="button" 
-                                        id="copyTextButton" 
-                                        class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-medium"
-                                    >
-                                        Copier le texte
-                                    </button>
-                                    <a 
-                                        href="https://textup.fr" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center"
-                                    >
-                                        Ouvrir textup.fr
-                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section pour nouveau communiqué -->
-                    <div id="newPressSection" class="hidden">
-                        <!-- Lien textup.fr généré -->
-                        <div class="glass-effect rounded-lg p-6">
-                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr généré</h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <label for="textupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le lien généré par textup.fr...</label>
-                                    <input 
-                                        type="url" 
-                                        id="textupLink" 
-                                        class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        placeholder="Ex: https://textup.fr/123456789"
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section pour communiqué existant -->
-                    <div id="existingPressSection" class="hidden">
-                        <!-- Lien textup.fr existant -->
-                        <div class="glass-effect rounded-lg p-6">
-                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr existant</h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <label for="existingTextupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici votre lien textup.fr existant...</label>
-                                    <input 
-                                        type="url" 
-                                        id="existingTextupLink" 
-                                        class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        placeholder="Ex: https://textup.fr/123456789"
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bouton de génération -->
-                <div class="text-center">
-                    <button 
-                        type="submit" 
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-                    >
-                        Générer la description
-                    </button>
-                </div>
-            </form>
-
-            <!-- Résultat -->
-            <div id="result" class="hidden mt-8 fade-in">
-                <div class="result-box rounded-lg p-6 text-gray-800">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-semibold text-gray-800">Votre description accessible :</h3>
-                        <button 
-                            id="copyButton" 
-                            class="copy-button bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium"
-                        >
-                            Copier
-                        </button>
-                    </div>
-                    <div id="generatedDescription" class="bg-gray-50 p-4 rounded border text-gray-700 leading-relaxed"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="text-center mt-12">
-            <div class="bg-white p-3 rounded-lg mx-auto max-w-sm shadow-lg">
-                <p class="text-sm text-gray-700 font-medium">TiRacoon - Pour un monde virtuel plus accessible</p>
-            </div>
-        </div>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+      <div class="bg-white p-6 rounded-lg mx-auto max-w-2xl">
+        <h1 class="text-4xl md:text-5xl font-bold text-black mb-4">Outil de Description d'Images</h1>
+        <p class="text-xl text-black mb-2">Créez des descriptions accessibles pour vos visuels</p>
+        <p class="text-sm text-black">Créé par TiRacoon</p>
+      </div>
     </div>
 
-    <!-- Script du générateur de descriptions -->
-    <script>
-        // Gestion de l'affichage des sections
-        document.querySelectorAll('input[name="contentType"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const imageSection = document.getElementById('imageSection');
-                const pressSection = document.getElementById('pressSection');
-                
-                if (this.value === 'image') {
-                    imageSection.classList.remove('hidden');
-                    pressSection.classList.add('hidden');
-                } else if (this.value === 'press') {
-                    pressSection.classList.remove('hidden');
-                    imageSection.classList.add('hidden');
-                }
-            });
-        });
+    <div class="max-w-4xl mx-auto">
+      <form id="descriptionForm" class="space-y-6" aria-label="Formulaire de génération de descriptions">
+        <div class="glass-effect rounded-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Type de contenu</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" role="radiogroup" aria-labelledby="typeContentLabel">
+            <span id="typeContentLabel" class="sr-only">Choisir le type de contenu</span>
 
-        // Gestion de l'affichage des sections de logos
-        document.getElementById('hasMainLogo').addEventListener('change', function() {
-            const section = document.getElementById('mainLogoSection');
-            if (this.checked) {
-                section.classList.remove('hidden');
-            } else {
-                section.classList.add('hidden');
-            }
-        });
+            <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
+              <input type="radio" name="contentType" value="image" class="text-blue-500 focus:ring-blue-500" />
+              <div>
+                <div class="font-medium">Image/Visuel</div>
+                <div class="text-sm text-gray-600">Photo, illustration, graphique, infographie</div>
+              </div>
+            </label>
 
-        document.getElementById('hasSocialLogos').addEventListener('change', function() {
-            const section = document.getElementById('socialLogosSection');
-            if (this.checked) {
-                section.classList.remove('hidden');
-            } else {
-                section.classList.add('hidden');
-            }
-        });
+            <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
+              <input type="radio" name="contentType" value="press" class="text-blue-500 focus:ring-blue-500" />
+              <div>
+                <div class="font-medium">Communiqué de presse</div>
+                <div class="text-sm text-gray-600">Document texte, article, communiqué</div>
+              </div>
+            </label>
+          </div>
+        </div>
 
-        // Gestion de l'affichage des sections de communiqué de presse
-        document.querySelectorAll('input[name="pressSituation"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const newSection = document.getElementById('newPressSection');
-                const existingSection = document.getElementById('existingPressSection');
-                
-                if (this.value === 'new') {
-                    newSection.classList.remove('hidden');
-                    existingSection.classList.add('hidden');
-                } else if (this.value === 'existing') {
-                    existingSection.classList.remove('hidden');
-                    newSection.classList.add('hidden');
-                }
-            });
-        });
+        <!-- Section Image/Visuel -->
+        <div id="imageSection" class="hidden" aria-hidden="true">
+          <div class="glass-effect rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</h3>
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="imageTypeSelect" class="block text-sm font-medium text-gray-800 mb-2">Type d'image</label>
+                  <select id="imageTypeSelect" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Sélectionner...</option>
+                    <option value="photo">Photo</option>
+                    <option value="illustration">Illustration</option>
+                    <option value="graphique">Graphique</option>
+                    <option value="infographie">Infographie</option>
+                    <option value="capture">Capture d'écran</option>
+                    <option value="dessin">Dessin</option>
+                  </select>
+                </div>
 
-        // Fonction de copie du texte pour textup.fr
-        document.getElementById('copyTextButton').addEventListener('click', function() {
-            const pressContent = document.getElementById('pressContent').value;
-            if (pressContent.trim()) {
-                navigator.clipboard.writeText(pressContent).then(function() {
-                    const button = document.getElementById('copyTextButton');
-                    const originalText = button.textContent;
-                    button.textContent = 'Texte copié !';
-                    button.classList.add('pulse-animation');
-                    
-                    setTimeout(function() {
-                        button.textContent = originalText;
-                        button.classList.remove('pulse-animation');
-                    }, 2000);
-                });
-            } else {
-                alert('Veuillez d\'abord saisir le texte du communiqué.');
-            }
-        });
+                <div>
+                  <label for="imageFormat" class="block text-sm font-medium text-gray-800 mb-2">Format</label>
+                  <select id="imageFormat" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Sélectionner...</option>
+                    <option value="9/16">9/16 (story)</option>
+                    <option value="16/9">16/9 (vignette)</option>
+                    <option value="carré">Carré (1/1)</option>
+                    <option value="insta">Instagram (4/5)</option>
+                    <option value="bannière">Bannière</option>
+                  </select>
+                </div>
+              </div>
 
-        document.getElementById('descriptionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const contentType = document.querySelector('input[name="contentType"]:checked')?.value;
-            let description = '';
-            
-            if (contentType === 'image') {
-                // Récupération des valeurs pour image
-                const imageTypeSelect = document.getElementById('imageTypeSelect').value;
-                const imageFormat = document.getElementById('imageFormat').value;
-                const generalDescription = document.getElementById('generalDescription').value;
-                const background = document.getElementById('background').value;
-                const foreground = document.getElementById('foreground').value;
-                const messageText = document.getElementById('messageText').value;
-                const textCase = document.querySelector('input[name="textCase"]:checked')?.value;
-                const fontColor = document.getElementById('fontColor').value;
-                
-                // Logos
-                const hasMainLogo = document.getElementById('hasMainLogo').checked;
-                const mainLogoDesc = document.getElementById('mainLogoDesc').value;
-                const mainLogoLocation = document.getElementById('mainLogoLocation').value;
-                
-                const hasSocialLogos = document.getElementById('hasSocialLogos').checked;
-                const selectedSocialNetworks = Array.from(document.querySelectorAll('.social-network:checked')).map(cb => cb.value);
-                const socialLogosLocation = document.getElementById('socialLogosLocation').value;
-                
-                // Construction de la description d'image
-                let parts = [];
-                
-                // 1. Type et format d'image
-                if (imageTypeSelect) {
-                    const typeLabels = {
-                        'photo': 'Photo',
-                        'illustration': 'Illustration',
-                        'graphique': 'Graphique',
-                        'infographie': 'Infographie',
-                        'capture': 'Capture d\'écran',
-                        'dessin': 'Dessin'
-                    };
-                    let typePart = typeLabels[imageTypeSelect];
-                    if (imageFormat) {
-                        const formatLabels = {
-                            '9/16': 'en format 9/16 (story/TikTok/Réel)',
-                            '16/9': 'en format 16/9 (vignette YouTube, visuel Twitter)',
-                            'carré': 'en format carré (1/1)',
-                            'insta': 'en format Instagram (4/5)',
-                            'bannière': 'en format bannière'
-                        };
-                        typePart += ' ' + formatLabels[imageFormat];
-                    }
-                    parts.push(typePart);
-                }
-                
-                // 2. Description générale
-                if (generalDescription.trim()) {
-                    parts.push(generalDescription.trim());
-                }
-                
-                // 3. Arrière-plan
-                if (background.trim()) {
-                    parts.push('Arrière-plan : ' + background.trim());
-                }
-                
-                // 4. Premier plan
-                if (foreground.trim()) {
-                    parts.push('Premier plan : ' + foreground.trim());
-                }
-                
-                // 5. Message/Texte
-                if (messageText.trim()) {
-                    let messagePart = 'Message : "' + messageText.trim() + '"';
-                    
-                    // Ajout des détails sur l'écriture
-                    let textDetails = [];
-                    if (textCase) {
-                        textDetails.push('en ' + textCase);
-                    }
-                    if (fontColor.trim()) {
-                        textDetails.push('couleur ' + fontColor.trim());
-                    }
-                    
-                    if (textDetails.length > 0) {
-                        messagePart += ' (' + textDetails.join(', ') + ')';
-                    }
-                    
-                    parts.push(messagePart);
-                }
-                
-                // 6. Logo principal
-                if (hasMainLogo && mainLogoDesc.trim()) {
-                    let logoPart = mainLogoDesc.trim();
-                    if (mainLogoLocation.trim()) {
-                        logoPart += ' (' + mainLogoLocation.trim() + ')';
-                    }
-                    parts.push(logoPart);
-                }
-                
-                // 7. Logos réseaux sociaux
-                if (hasSocialLogos && selectedSocialNetworks.length > 0) {
-                    let socialPart = '';
-                    if (selectedSocialNetworks.length === 1) {
-                        socialPart = 'Logo ' + selectedSocialNetworks[0];
-                    } else {
-                        socialPart = 'Logos ' + selectedSocialNetworks.join(', ');
-                    }
-                    if (socialLogosLocation.trim()) {
-                        socialPart += ' (' + socialLogosLocation.trim() + ')';
-                    }
-                    parts.push(socialPart);
-                }
-                
-                // Assemblage final
-                if (parts.length > 0) {
-                    description = parts.join('. ');
-                    if (!description.endsWith('.')) {
-                        description += '.';
-                    }
-                }
-                
-            } else if (contentType === 'press') {
-                // Récupération des valeurs pour communiqué de presse
-                const pressSituation = document.querySelector('input[name="pressSituation"]:checked')?.value;
-                const pressTitle = document.getElementById('pressTitle').value;
-                const pressImageDesc = document.getElementById('pressImageDesc').value;
-                
-                // Récupération du lien selon la situation
-                let textupLink = '';
-                if (pressSituation === 'new') {
-                    textupLink = document.getElementById('textupLink').value;
-                } else if (pressSituation === 'existing') {
-                    textupLink = document.getElementById('existingTextupLink').value;
-                }
-                
-                // Construction de la description de communiqué
-                if (pressImageDesc.trim()) {
-                    description = pressImageDesc.trim();
-                } else {
-                    description = 'Communiqué de presse';
-                }
-                
-                if (pressTitle.trim()) {
-                    description += ' intitulé "' + pressTitle.trim() + '"';
-                }
-                
-                if (textupLink.trim()) {
-                    description += '. Version accessible disponible sur : ' + textupLink.trim();
-                }
-            }
-            
-            // Nettoyage final
-            description = description.replace(/^[. ]+/, '');
-            description = description.replace(/\. \./g, '.');
-            if (description && !description.endsWith('.')) {
-                description += '.';
-            }
-            
-            // Affichage du résultat
-            if (description.trim()) {
-                document.getElementById('generatedDescription').textContent = description;
-                document.getElementById('result').classList.remove('hidden');
-                document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert('Veuillez sélectionner un type de contenu et remplir au moins un champ pour générer une description.');
-            }
-        });
-        
-        // Fonction de copie
-        document.getElementById('copyButton').addEventListener('click', function() {
-            const description = document.getElementById('generatedDescription').textContent;
-            navigator.clipboard.writeText(description).then(function() {
-                const button = document.getElementById('copyButton');
-                const originalText = button.textContent;
-                button.textContent = 'Copié !';
-                button.classList.add('pulse-animation');
-                
-                setTimeout(function() {
-                    button.textContent = originalText;
-                    button.classList.remove('pulse-animation');
-                }, 2000);
-            });
-        });
-    </script>
-    <!-- Faites Mieux - Toolbar d'accessibilité -->
-    <script>
-/* Faites Mieux, par Ti Racoon - accessible-core.js */
+              <div>
+                <label for="generalDescription" class="block text-sm font-medium text-gray-800 mb-2">Description générale</label>
+                <textarea id="generalDescription" rows="3" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Décrivez l'image de manière générale..."></textarea>
+              </div>
 
-/* Variables et utilitaires */
-const fm = {
-  settings: {
-    theme:"light", font:"Lexend", fontSize:1, brightness:1,
-    lineHeight:1.6, letterSpacing:0.02, wordSpacing:0.04,
-    falc:0, readHighlight:true, zoomGlobal:1, zoomText:1,
-    profiles:{}
-  },
-  save:function(){ localStorage.setItem("fm-settings",JSON.stringify(this.settings)); },
-  load:function(){ const s=localStorage.getItem("fm-settings"); if(s)this.settings=JSON.parse(s); },
-  apply:function(){
-    const html=document.documentElement;
-    html.classList.add("fm-applied");
-    html.classList.remove(
-      "fm-theme-light","fm-theme-dark","fm-theme-sepia","fm-theme-red","fm-theme-blue","fm-theme-high-contrast"
-    );
-    html.classList.add("fm-theme-"+this.settings.theme);
-    html.style.setProperty("--fm-scale",this.settings.fontSize);
-    html.style.setProperty("--fm-brightness",this.settings.brightness);
-    html.style.setProperty("--fm-line-height",this.settings.lineHeight);
-    html.style.setProperty("--fm-letter-spacing",this.settings.letterSpacing);
-    html.style.setProperty("--fm-word-spacing",this.settings.wordSpacing);
-    html.style.setProperty("--fm-zoom-global",this.settings.zoomGlobal);
-    html.style.setProperty("--fm-zoom-text",this.settings.zoomText);
-    html.style.setProperty("--fm-font",this.settings.font);
-    html.classList.toggle("fm-falc",this.settings.falc>0);
-  },
-  exportJSON:function(){ 
-    const data=JSON.stringify(this.settings,null,2);
-    const blob=new Blob([data],{type:"application/json"});
-    const a=document.createElement("a");
-    a.href=URL.createObjectURL(blob);
-    a.download="fm-settings.json";
-    a.click();
-  },
-  importJSON:function(file){
-    const reader=new FileReader();
-    reader.onload=e=>{
-      try{
-        const imp=JSON.parse(e.target.result);
-        Object.assign(this.settings,imp);
-        this.apply(); this.save();
-        alert("Préférences importées !");
-      }catch(err){alert("Erreur import JSON: "+err);}
+              <div>
+                <label for="background" class="block text-sm font-medium text-gray-800 mb-2">Arrière-plan</label>
+                <textarea id="background" rows="2" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Décrivez l'arrière-plan..."></textarea>
+              </div>
+
+              <div>
+                <label for="foreground" class="block text-sm font-medium text-gray-800 mb-2">Premier plan</label>
+                <textarea id="foreground" rows="2" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Décrivez le premier plan..."></textarea>
+              </div>
+
+              <div>
+                <label for="messageText" class="block text-sm font-medium text-gray-800 mb-2">Message</label>
+                <textarea id="messageText" rows="3" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Quel est le message écrit ?"></textarea>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <span class="block text-sm font-medium text-gray-800 mb-3">Écriture</span>
+                  <div class="space-y-2" role="radiogroup" aria-label="Majuscules ou minuscules">
+                    <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
+                      <input type="radio" name="textCase" value="minuscules" class="text-blue-500 focus:ring-blue-500" />
+                      <span>Minuscules</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
+                      <input type="radio" name="textCase" value="majuscules" class="text-blue-500 focus:ring-blue-500" />
+                      <span>Majuscules</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="fontColor" class="block text-sm font-medium text-gray-800 mb-2">Couleur de la police</label>
+                  <input id="fontColor" type="text" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Ex: blanc, noir, rouge..." />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-effect rounded-lg p-6 mt-4">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Logos et emplacement</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="flex items-center space-x-2 text-gray-800 cursor-pointer mb-3">
+                  <input type="checkbox" id="hasMainLogo" class="rounded text-blue-500 focus:ring-blue-500"/>
+                  <span class="font-medium">Logo principal</span>
+                </label>
+                <div id="mainLogoSection" class="hidden ml-6 space-y-3">
+                  <div>
+                    <label for="mainLogoDesc" class="block text-sm font-medium text-gray-800 mb-2">Description du logo</label>
+                    <input id="mainLogoDesc" type="text" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Ex: Logo de l'entreprise XYZ"/>
+                  </div>
+                  <div>
+                    <label for="mainLogoLocation" class="block text-sm font-medium text-gray-800 mb-2">Emplacement</label>
+                    <input id="mainLogoLocation" type="text" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Ex: en haut à gauche"/>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="flex items-center space-x-2 text-gray-800 cursor-pointer mb-3">
+                  <input type="checkbox" id="hasSocialLogos" class="rounded text-blue-500 focus:ring-blue-500"/>
+                  <span class="font-medium">Logos réseaux sociaux</span>
+                </label>
+                <div id="socialLogosSection" class="hidden ml-6 space-y-3">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-800 mb-2">Sélectionnez les réseaux présents</label>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
+                      <label class="flex items-center space-x-2 text-gray-800 cursor-pointer"><input type="checkbox" class="social-network rounded text-blue-500" value="Facebook"/><span>Facebook</span></label>
+                      <label class="flex items-center space-x-2 text-gray-800 cursor-pointer"><input type="checkbox" class="social-network rounded text-blue-500" value="Twitter/X"/><span>Twitter/X</span></label>
+                      <label class="flex items-center space-x-2 text-gray-800 cursor-pointer"><input type="checkbox" class="social-network rounded text-blue-500" value="Instagram"/><span>Instagram</span></label>
+                      <label class="flex items-center space-x-2 text-gray-800 cursor-pointer"><input type="checkbox" class="social-network rounded text-blue-500" value="LinkedIn"/><span>LinkedIn</span></label>
+                      <label class="flex items-center space-x-2 text-gray-800 cursor-pointer"><input type="checkbox" class="social-network rounded text-blue-500" value="YouTube"/><span>YouTube</span></label>
+                      <label class="flex items-center space-x-2 text-gray-800 cursor-pointer"><input type="checkbox" class="social-network rounded text-blue-500" value="TikTok"/><span>TikTok</span></label>
+                    </div>
+                  </div>
+                  <div>
+                    <label for="socialLogosLocation" class="block text-sm font-medium text-gray-800 mb-2">Emplacement des logos sociaux</label>
+                    <input id="socialLogosLocation" type="text" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Ex: en bas à droite"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Communiqué de presse -->
+        <div id="pressSection" class="hidden" aria-hidden="true">
+          <div class="glass-effect rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Situation du communiqué</h3>
+            <div class="space-y-4">
+              <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
+                <input type="radio" name="pressSituation" value="new" class="text-blue-500 focus:ring-blue-500" />
+                <div>
+                  <div class="font-medium">Nouveau communiqué</div>
+                  <div class="text-sm text-gray-600">(pas encore de lien accessible)</div>
+                </div>
+              </label>
+              <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
+                <input type="radio" name="pressSituation" value="existing" class="text-blue-500 focus:ring-blue-500" />
+                <div>
+                  <div class="font-medium">Communiqué avec lien accessible existant</div>
+                  <div class="text-sm text-gray-600">Vous avez déjà un lien textup.fr</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="glass-effect rounded-lg p-6 mt-4">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Titre du communiqué</h3>
+            <div>
+              <label for="pressTitle" class="block text-sm font-medium text-gray-800 mb-2">Titre principal</label>
+              <input id="pressTitle" type="text" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Titre du communiqué"/>
+            </div>
+          </div>
+
+          <div class="glass-effect rounded-lg p-6 mt-4">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</h3>
+            <div>
+              <label for="pressImageDesc" class="block text-sm font-medium text-gray-800 mb-2">Décrivez le papier à en-tête...</label>
+              <textarea id="pressImageDesc" rows="3" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Ex: Document officiel..."></textarea>
+            </div>
+          </div>
+
+          <div class="glass-effect rounded-lg p-6 mt-4">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Texte du communiqué</h3>
+            <div>
+              <label for="pressContent" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le texte complet...</label>
+              <textarea id="pressContent" rows="8" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="Texte intégral du communiqué..."></textarea>
+            </div>
+
+            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 mt-4">
+              <p class="text-gray-800 mb-3"><strong>Étape suivante :</strong> Copiez ce texte et envoyez-le sur textup.fr</p>
+              <p class="text-sm text-gray-700 mb-3"><strong>Qu'est-ce que textup.fr ?</strong> Hébergeur de texte gratuit pour partager de longs textes.</p>
+              <div class="flex gap-3">
+                <button type="button" id="copyTextButton" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-medium">Copier le texte</button>
+                <a href="https://textup.fr" target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center">Ouvrir textup.fr</a>
+              </div>
+            </div>
+          </div>
+
+          <div id="newPressSection" class="hidden mt-4">
+            <div class="glass-effect rounded-lg p-6">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr généré</h3>
+              <div>
+                <label for="textupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le lien généré...</label>
+                <input id="textupLink" type="url" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="https://textup.fr/..." />
+              </div>
+            </div>
+          </div>
+
+          <div id="existingPressSection" class="hidden mt-4">
+            <div class="glass-effect rounded-lg p-6">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr existant</h3>
+              <div>
+                <label for="existingTextupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici votre lien existant...</label>
+                <input id="existingTextupLink" type="url" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800" placeholder="https://textup.fr/..." />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">Générer la description</button>
+        </div>
+      </form>
+
+      <div id="result" class="hidden mt-8 fade-in" aria-live="polite" role="region" aria-label="Résultat description">
+        <div class="result-box rounded-lg p-6 text-gray-800">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold text-gray-800">Votre description accessible :</h3>
+            <button id="copyButton" class="copy-button bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium" type="button">Copier</button>
+          </div>
+          <div id="generatedDescription" class="bg-gray-50 p-4 rounded border text-gray-700 leading-relaxed"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <div class="bg-white p-3 rounded-lg mx-auto max-w-sm shadow-lg">
+        <p class="text-sm text-gray-700 font-medium">TiRacoon - Pour un monde virtuel plus accessible</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS principal (logique du formulaire) + améliorations d'accessibilité -->
+  <script>
+    // Utilitaire : toggle hidden + accessibility attributes
+    function show(el){ el.classList.remove('hidden'); el.setAttribute('aria-hidden','false'); }
+    function hide(el){ el.classList.add('hidden'); el.setAttribute('aria-hidden','true'); }
+
+    // Sections toggles
+    document.querySelectorAll('input[name="contentType"]').forEach(radio=>{
+      radio.addEventListener('change', function(){
+        const imageSection = document.getElementById('imageSection');
+        const pressSection = document.getElementById('pressSection');
+        if(this.value === 'image'){ show(imageSection); hide(pressSection); }
+        else if(this.value === 'press'){ show(pressSection); hide(imageSection); }
+      });
+    });
+
+    document.getElementById('hasMainLogo').addEventListener('change', function(){
+      const section = document.getElementById('mainLogoSection');
+      this.checked ? show(section) : hide(section);
+    });
+
+    document.getElementById('hasSocialLogos').addEventListener('change', function(){
+      const section = document.getElementById('socialLogosSection');
+      this.checked ? show(section) : hide(section);
+    });
+
+    document.querySelectorAll('input[name="pressSituation"]').forEach(radio=>{
+      radio.addEventListener('change', function(){
+        const newSection = document.getElementById('newPressSection');
+        const existingSection = document.getElementById('existingPressSection');
+        if(this.value === 'new'){ show(newSection); hide(existingSection); }
+        else if(this.value === 'existing'){ show(existingSection); hide(newSection); }
+      });
+    });
+
+    // Copier texte pour textup
+    document.getElementById('copyTextButton').addEventListener('click', function(){
+      const pressContent = document.getElementById('pressContent').value;
+      if(pressContent.trim()){
+        navigator.clipboard.writeText(pressContent).then(()=>{
+          const button = document.getElementById('copyTextButton');
+          const originalText = button.textContent;
+          button.textContent = 'Texte copié !';
+          button.classList.add('pulse-animation');
+          setTimeout(()=>{ button.textContent = originalText; button.classList.remove('pulse-animation'); }, 2000);
+        }).catch(()=>{ alert('Impossible de copier automatiquement. Copiez manuellement.'); });
+      } else {
+        alert('Veuillez d\'abord saisir le texte du communiqué.');
+      }
+    });
+
+    // Génération description
+    document.getElementById('descriptionForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const contentType = document.querySelector('input[name="contentType"]:checked')?.value;
+      let description = '';
+
+      if(contentType === 'image'){
+        const imageTypeSelect = document.getElementById('imageTypeSelect').value;
+        const imageFormat = document.getElementById('imageFormat').value;
+        const generalDescription = document.getElementById('generalDescription').value;
+        const background = document.getElementById('background').value;
+        const foreground = document.getElementById('foreground').value;
+        const messageText = document.getElementById('messageText').value;
+        const textCase = document.querySelector('input[name="textCase"]:checked')?.value;
+        const fontColor = document.getElementById('fontColor').value;
+
+        const hasMainLogo = document.getElementById('hasMainLogo').checked;
+        const mainLogoDesc = document.getElementById('mainLogoDesc').value;
+        const mainLogoLocation = document.getElementById('mainLogoLocation').value;
+
+        const hasSocialLogos = document.getElementById('hasSocialLogos').checked;
+        const selectedSocialNetworks = Array.from(document.querySelectorAll('.social-network:checked')).map(cb=>cb.value);
+        const socialLogosLocation = document.getElementById('socialLogosLocation').value;
+
+        let parts = [];
+
+        if(imageTypeSelect){
+          const typeLabels = { 'photo':'Photo','illustration':'Illustration','graphique':'Graphique','infographie':'Infographie','capture':"Capture d'écran",'dessin':'Dessin' };
+          let typePart = typeLabels[imageTypeSelect] || imageTypeSelect;
+          if(imageFormat){
+            const formatLabels = { '9/16':'en format 9/16','16/9':'en format 16/9','carré':'en format carré','insta':'en format Instagram','bannière':'en format bannière' };
+            typePart += ' ' + (formatLabels[imageFormat] || imageFormat);
+          }
+          parts.push(typePart);
+        }
+
+        if(generalDescription.trim()) parts.push(generalDescription.trim());
+        if(background.trim()) parts.push('Arrière-plan : ' + background.trim());
+        if(foreground.trim()) parts.push('Premier plan : ' + foreground.trim());
+
+        if(messageText.trim()){
+          let messagePart = 'Message : "' + messageText.trim() + '"';
+          let textDetails = [];
+          if(textCase) textDetails.push('en ' + textCase);
+          if(fontColor.trim()) textDetails.push('couleur ' + fontColor.trim());
+          if(textDetails.length) messagePart += ' (' + textDetails.join(', ') + ')';
+          parts.push(messagePart);
+        }
+
+        if(hasMainLogo && mainLogoDesc.trim()){
+          let logoPart = mainLogoDesc.trim();
+          if(mainLogoLocation.trim()) logoPart += ' (' + mainLogoLocation.trim() + ')';
+          parts.push(logoPart);
+        }
+
+        if(hasSocialLogos && selectedSocialNetworks.length > 0){
+          let socialPart = selectedSocialNetworks.length === 1 ? 'Logo ' + selectedSocialNetworks[0] : 'Logos ' + selectedSocialNetworks.join(', ');
+          if(socialLogosLocation.trim()) socialPart += ' (' + socialLogosLocation.trim() + ')';
+          parts.push(socialPart);
+        }
+
+        if(parts.length > 0){
+          description = parts.join('. ');
+          if(!description.endsWith('.')) description += '.';
+        }
+      }
+      else if(contentType === 'press'){
+        const pressSituation = document.querySelector('input[name="pressSituation"]:checked')?.value;
+        const pressTitle = document.getElementById('pressTitle').value;
+        const pressImageDesc = document.getElementById('pressImageDesc').value;
+        let textupLink = '';
+        if(pressSituation === 'new') textupLink = document.getElementById('textupLink').value || '';
+        else if(pressSituation === 'existing') textupLink = document.getElementById('existingTextupLink').value || '';
+
+        description = pressImageDesc.trim() || 'Communiqué de presse';
+        if(pressTitle.trim()) description += ' intitulé "' + pressTitle.trim() + '"';
+        if(textupLink.trim()) description += '. Version accessible disponible sur : ' + textupLink.trim();
+      }
+
+      description = description.replace(/^[. ]+/, '').replace(/\. \./g, '.');
+      if(description && !description.endsWith('.')) description += '.';
+
+      if(description.trim()){
+        const out = document.getElementById('generatedDescription');
+        out.textContent = description;
+        document.getElementById('result').classList.remove('hidden');
+        document.getElementById('result').scrollIntoView({behavior:'smooth'});
+      } else {
+        alert('Veuillez sélectionner un type de contenu et remplir au moins un champ pour générer une description.');
+      }
+    });
+
+    // copie du résultat
+    document.getElementById('copyButton').addEventListener('click', function(){
+      const description = document.getElementById('generatedDescription').textContent || '';
+      if(!description) return;
+      navigator.clipboard.writeText(description).then(()=>{
+        const b = document.getElementById('copyButton');
+        const orig = b.textContent;
+        b.textContent = 'Copié !';
+        b.classList.add('pulse-animation');
+        setTimeout(()=>{ b.textContent = orig; b.classList.remove('pulse-animation'); }, 2000);
+      }).catch(()=>{ alert('Impossible de copier automatiquement. Copiez manuellement.'); });
+    });
+  </script>
+
+  <!-- Faites Mieux - accessible-core.js (intégré et corrigé) -->
+  <script>
+    const fm = {
+      settings: {
+        theme: "light",
+        font: "Lexend",
+        fontSize: 1,
+        brightness: 1,
+        lineHeight: 1.6,
+        letterSpacing: 0.02,
+        wordSpacing: 0.04,
+        falc: 0,
+        readHighlight: true,
+        zoomGlobal: 1,
+        zoomText: 1,
+        profiles: {}
+      },
+      save: function(){ localStorage.setItem("fm-settings", JSON.stringify(this.settings)); },
+      load: function(){ const s = localStorage.getItem("fm-settings"); if(s) this.settings = Object.assign(this.settings, JSON.parse(s)); },
+      apply: function(){
+        const html = document.documentElement;
+        html.classList.add("fm-applied");
+        html.classList.remove("fm-theme-light","fm-theme-dark","fm-theme-sepia","fm-theme-red","fm-theme-blue","fm-theme-high-contrast");
+        html.classList.add("fm-theme-" + this.settings.theme);
+        html.style.setProperty("--fm-scale", this.settings.fontSize);
+        html.style.setProperty("--fm-brightness", this.settings.brightness);
+        html.style.setProperty("--fm-line-height", this.settings.lineHeight);
+        html.style.setProperty("--fm-letter-spacing", this.settings.letterSpacing);
+        html.style.setProperty("--fm-word-spacing", this.settings.wordSpacing);
+        html.style.setProperty("--fm-zoom-global", this.settings.zoomGlobal);
+        html.style.setProperty("--fm-zoom-text", this.settings.zoomText);
+        html.style.setProperty("--fm-font", this.settings.font);
+        html.classList.toggle("fm-falc", this.settings.falc > 0);
+      },
+      exportJSON: function(){
+        const data = JSON.stringify(this.settings, null, 2);
+        const blob = new Blob([data], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "fm-settings.json";
+        a.click();
+      },
+      importJSON: function(file){
+        const reader = new FileReader();
+        reader.onload = e => {
+          try{
+            const imp = JSON.parse(e.target.result);
+            Object.assign(this.settings, imp);
+            this.apply();
+            this.save();
+            alert("Préférences importées !");
+          }catch(err){
+            alert("Erreur import JSON: " + err);
+          }
+        };
+        reader.readAsText(file);
+      },
+      speak: function(text, voice=null, rate=1){
+        if(!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        if(voice) u.voice = voice;
+        u.rate = rate;
+        window.speechSynthesis.speak(u);
+      }
     };
-    reader.readAsText(file);
-  },
-  speak:function(text,voice=null,rate=1){
-    if(!window.speechSynthesis)return;
-    window.speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(text);
-    if(voice) u.voice=voice;
-    u.rate=rate;
-    window.speechSynthesis.speak(u);
-  }
-};
-fm.load();
-fm.apply();
 
-/* Toolbar HTML */
-const fmToolbarHTML=`
-<div class="fm-toolbar" role="dialog" aria-label="Toolbar d'accessibilité Faites Mieux">
-<header>
-  <h2>Faites Mieux</h2>
-  <button class="fm-close" aria-label="Fermer la toolbar">×</button>
-</header>
-<div class="fm-section">
-  <label for="fm-theme">Thème</label>
-  <select id="fm-theme" class="fm-control" aria-label="Sélection du thème">
-    <option value="light">Clair</option>
-    <option value="dark">Sombre</option>
-    <option value="sepia">Sépia</option>
-    <option value="red">Rouge</option>
-    <option value="blue">Bleu</option>
-    <option value="high-contrast">Contraste élevé</option>
-  </select>
-</div>
-<div class="fm-section">
-  <label for="fm-font">Police</label>
-  <select id="fm-font" class="fm-control" aria-label="Sélection de la police">
-    <option value="Lexend">Lexend</option>
-    <option value="Atkinson Hyperlegible">Atkinson Hyperlegible</option>
-    <option value="OpenDyslexic">OpenDyslexic</option>
-    <option value="Inter">Inter</option>
-  </select>
-</div>
-<div class="fm-section fm-row">
-  <label for="fm-fontSize">Taille texte</label>
-  <input type="range" min="0.5" max="2" step="0.05" value="${fm.settings.fontSize}" id="fm-fontSize" aria-label="Curseur taille du texte">
-  <span class="fm-value" id="fm-fontSize-val">${(fm.settings.fontSize*100).toFixed(0)}%</span>
-</div>
-<div class="fm-section fm-row">
-  <label for="fm-brightness">Luminosité</label>
-  <input type="range" min="0.5" max="2" step="0.05" value="${fm.settings.brightness}" id="fm-brightness" aria-label="Curseur luminosité">
-  <span class="fm-value" id="fm-brightness-val">${(fm.settings.brightness*100).toFixed(0)}%</span>
-</div>
-<div class="fm-section fm-row">
-  <label for="fm-lineHeight">Interligne</label>
-  <input type="range" min="1" max="2.5" step="0.05" value="${fm.settings.lineHeight}" id="fm-lineHeight" aria-label="Curseur interligne">
-</div>
-<div class="fm-section fm-row">
-  <label for="fm-letterSpacing">Espacement lettres</label>
-  <input type="range" min="0" max="0.2" step="0.01" value="${fm.settings.letterSpacing}" id="fm-letterSpacing" aria-label="Curseur espacement lettres">
-</div>
-<div class="fm-section fm-row">
-  <label for="fm-wordSpacing">Espacement mots</label>
-  <input type="range" min="0" max="0.4" step="0.02" value="${fm.settings.wordSpacing}" id="fm-wordSpacing" aria-label="Curseur espacement mots">
-</div>
-<div class="fm-section fm-row">
-  <label for="fm-falc">Mode FALC</label>
-  <select id="fm-falc" class="fm-control" aria-label="Sélection niveau FALC">
-    <option value="0">Off</option>
-    <option value="1">1 — léger</option>
-    <option value="2">2 — moyen</option>
-    <option value="3">3 — maximal</option>
-  </select>
-</div>
-<div class="fm-section fm-row">
-  <button class="fm-btn" id="fm-read" aria-label="Lire texte sélectionné">Lire le texte</button>
-</div>
-<div class="fm-section fm-row">
-  <button class="fm-btn" id="fm-export" aria-label="Exporter vos préférences">Exporter JSON</button>
-  <input type="file" id="fm-import" aria-label="Importer vos préférences" accept=".json">
-</div>
-</div>
-`;
-const div=document.createElement("div");
-div.innerHTML=fmToolbarHTML;
-document.body.appendChild(div.firstElementChild);
+    fm.load();
+    fm.apply();
 
-/* Toolbar Event Listeners */
-const toolbar=document.querySelector(".fm-toolbar");
-toolbar.querySelector(".fm-close").addEventListener("click",()=>toolbar.style.display="none");
+    // build toolbar HTML as template string (valid DOM insertion)
+    const fmToolbarHTML = `
+      <div class="fm-toolbar" role="dialog" aria-label="Barre d'accessibilité Faites Mieux" aria-hidden="false">
+        <header>
+          <h2>Faites Mieux</h2>
+          <button class="fm-close" aria-label="Fermer la barre">✕</button>
+        </header>
 
-document.getElementById("fm-theme").addEventListener("change",e=>{
-  fm.settings.theme=e.target.value; fm.apply(); fm.save();
-});
-document.getElementById("fm-font").addEventListener("change",e=>{
-  fm.settings.font=e.target.value; fm.apply(); fm.save();
-});
-const fontSlider=document.getElementById("fm-fontSize");
-const fontVal=document.getElementById("fm-fontSize-val");
-fontSlider.addEventListener("input",e=>{
-  fm.settings.fontSize=parseFloat(e.target.value);
-  fontVal.textContent=(fm.settings.fontSize*100).toFixed(0)+"%";
-  fm.apply(); fm.save();
-});
-const brightSlider=document.getElementById("fm-brightness");
-const brightVal=document.getElementById("fm-brightness-val");
-brightSlider.addEventListener("input",e=>{
-  fm.settings.brightness=parseFloat(e.target.value);
-  brightVal.textContent=(fm.settings.brightness*100).toFixed(0)+"%";
-  fm.apply(); fm.save();
-});
-document.getElementById("fm-lineHeight").addEventListener("input",e=>{
-  fm.settings.lineHeight=parseFloat(e.target.value); fm.apply(); fm.save();
-});
-document.getElementById("fm-letterSpacing").addEventListener("input",e=>{
-  fm.settings.letterSpacing=parseFloat(e.target.value); fm.apply(); fm.save();
-});
-document.getElementById("fm-wordSpacing").addEventListener("input",e=>{
-  fm.settings.wordSpacing=parseFloat(e.target.value); fm.apply(); fm.save();
-});
-document.getElementById("fm-falc").addEventListener("change",e=>{
-  fm.settings.falc=parseInt(e.target.value); fm.apply(); fm.save();
-});
-document.getElementById("fm-read").addEventListener("click",()=>{
-  const selection=window.getSelection().toString().trim();
-  if(selection) fm.speak(selection);
-  else alert("Sélectionnez un texte à lire.");
-});
-document.getElementById("fm-export").addEventListener("click",()=>fm.exportJSON());
-document.getElementById("fm-import").addEventListener("change",e=>{
-  const file=e.target.files[0]; if(file) fm.importJSON(file);
-});
+        <div class="fm-section">
+          <label for="fm-theme">Thème</label>
+          <select id="fm-theme" class="fm-control" aria-label="Sélection du thème">
+            <option value="light">Clair</option>
+            <option value="dark">Sombre</option>
+            <option value="sepia">Sépia</option>
+            <option value="red">Rouge</option>
+            <option value="blue">Bleu</option>
+            <option value="high-contrast">Contraste élevé</option>
+          </select>
+        </div>
 
-/* End of Faites Mieux - accessible-core.js */
-    </script>
+        <div class="fm-section">
+          <label for="fm-font">Police</label>
+          <select id="fm-font" class="fm-control" aria-label="Sélection de la police">
+            <option value="Lexend">Lexend</option>
+            <option value="Atkinson Hyperlegible">Atkinson Hyperlegible</option>
+            <option value="OpenDyslexic">OpenDyslexic</option>
+            <option value="Inter">Inter</option>
+          </select>
+        </div>
+
+        <div class="fm-section fm-row">
+          <label for="fm-fontSize">Taille texte</label>
+          <input type="range" id="fm-fontSize" min="0.5" max="2" step="0.05" value="${fm.settings.fontSize}" class="fm-range" aria-label="Taille du texte" />
+          <span class="fm-value" id="fm-fontSize-val">${(fm.settings.fontSize*100).toFixed(0)}%</span>
+        </div>
+
+        <div class="fm-section fm-row">
+          <label for="fm-brightness">Luminosité</label>
+          <input type="range" id="fm-brightness" min="0.5" max="2" step="0.05" value="${fm.settings.brightness}" class="fm-range" aria-label="Luminosité" />
+          <span class="fm-value" id="fm-brightness-val">${(fm.settings.brightness*100).toFixed(0)}%</span>
+        </div>
+
+        <div class="fm-section fm-row">
+          <label for="fm-lineHeight">Interligne</label>
+          <input type="range" id="fm-lineHeight" min="1" max="2.5" step="0.05" value="${fm.settings.lineHeight}" class="fm-range" aria-label="Interligne" />
+        </div>
+
+        <div class="fm-section fm-row">
+          <label for="fm-letterSpacing">Espacement lettres</label>
+          <input type="range" id="fm-letterSpacing" min="0" max="0.2" step="0.01" value="${fm.settings.letterSpacing}" class="fm-range" aria-label="Espacement des lettres" />
+        </div>
+
+        <div class="fm-section fm-row">
+          <label for="fm-wordSpacing">Espacement mots</label>
+          <input type="range" id="fm-wordSpacing" min="0" max="0.4" step="0.02" value="${fm.settings.wordSpacing}" class="fm-range" aria-label="Espacement des mots" />
+        </div>
+
+        <div class="fm-section fm-row">
+          <label for="fm-falc">Mode FALC</label>
+          <select id="fm-falc" class="fm-control" aria-label="Niveau FALC">
+            <option value="0">Off</option>
+            <option value="1">1 - léger</option>
+            <option value="2">2 - moyen</option>
+            <option value="3">3 - maximal</option>
+          </select>
+        </div>
+
+        <div class="fm-section fm-row">
+          <button class="fm-btn" id="fm-read" type="button" aria-label="Lire texte sélectionné">Lire le texte</button>
+        </div>
+
+        <div class="fm-section fm-row">
+          <button class="fm-btn" id="fm-export" type="button" aria-label="Exporter préférences">Exporter JSON</button>
+          <input id="fm-import" type="file" accept=".json" aria-label="Importer préférences" />
+        </div>
+      </div>
+    `;
+
+    const div = document.createElement('div');
+    div.innerHTML = fmToolbarHTML;
+    document.body.appendChild(div.firstElementChild);
+
+    // Events
+    const toolbar = document.querySelector('.fm-toolbar');
+    toolbar.querySelector('.fm-close').addEventListener('click', ()=> toolbar.style.display = 'none');
+
+    document.getElementById('fm-theme').addEventListener('change', e=>{ fm.settings.theme = e.target.value; fm.apply(); fm.save(); });
+    document.getElementById('fm-font').addEventListener('change', e=>{ fm.settings.font = e.target.value; fm.apply(); fm.save(); });
+
+    const fontSlider = document.getElementById('fm-fontSize');
+    const fontVal = document.getElementById('fm-fontSize-val');
+    fontSlider.addEventListener('input', e=>{ fm.settings.fontSize = parseFloat(e.target.value); fontVal.textContent = (fm.settings.fontSize*100).toFixed(0) + '%'; fm.apply(); fm.save(); });
+
+    const brightSlider = document.getElementById('fm-brightness');
+    const brightVal = document.getElementById('fm-brightness-val');
+    brightSlider.addEventListener('input', e=>{ fm.settings.brightness = parseFloat(e.target.value); brightVal.textContent = (fm.settings.brightness*100).toFixed(0) + '%'; fm.apply(); fm.save(); });
+
+    document.getElementById('fm-lineHeight').addEventListener('input', e=>{ fm.settings.lineHeight = parseFloat(e.target.value); fm.apply(); fm.save(); });
+    document.getElementById('fm-letterSpacing').addEventListener('input', e=>{ fm.settings.letterSpacing = parseFloat(e.target.value); fm.apply(); fm.save(); });
+    document.getElementById('fm-wordSpacing').addEventListener('input', e=>{ fm.settings.wordSpacing = parseFloat(e.target.value); fm.apply(); fm.save(); });
+    document.getElementById('fm-falc').addEventListener('change', e=>{ fm.settings.falc = parseInt(e.target.value,10); fm.apply(); fm.save(); });
+
+    document.getElementById('fm-read').addEventListener('click', ()=> {
+      const selection = window.getSelection().toString().trim();
+      if(selection) fm.speak(selection);
+      else alert('Sélectionnez un texte à lire.');
+    });
+
+    document.getElementById('fm-export').addEventListener('click', ()=> fm.exportJSON());
+    document.getElementById('fm-import').addEventListener('change', e=>{ const file = e.target.files[0]; if(file) fm.importJSON(file); });
+
+  </script>
 </body>
 </html>
