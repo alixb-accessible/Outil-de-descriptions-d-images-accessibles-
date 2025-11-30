@@ -45,11 +45,11 @@
   --fm-fg: #0b0b0b;
 }
 
-/* Bouton d'ouverture de la toolbar */
+/* Bouton d'ouverture de la toolbar - À GAUCHE */
 .fm-toggle-btn {
   position: fixed;
   top: 12px;
-  right: 12px;
+  left: 12px;
   z-index: calc(var(--fm-z) + 1);
   background: linear-gradient(135deg, #005f73 0%, #0a9396 100%);
   color: white;
@@ -75,24 +75,6 @@
   display: none;
 }
 
-/* Base accessible - FORCE l'application avec !important */
-.fm-applied * {
-  font-family: var(--fm-font) !important;
-  font-size: calc(var(--fm-base-size) * var(--fm-scale)) !important;
-  line-height: var(--fm-line-height) !important;
-  letter-spacing: var(--fm-letter-spacing) !important;
-  word-spacing: var(--fm-word-spacing) !important;
-}
-
-.fm-applied {
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: grayscale !important;
-  filter: brightness(var(--fm-brightness)) contrast(var(--fm-contrast)) !important;
-  transition: background-color 180ms ease, color 180ms ease, filter 180ms ease !important;
-}
-
-p, li { text-align: left; max-width: 75ch; }
-
 /* Skip link */
 .fm-skip-link {
   position: absolute; left: 8px; top: -48px;
@@ -102,10 +84,10 @@ p, li { text-align: left; max-width: 75ch; }
 }
 .fm-skip-link:focus { top: 8px; outline: none; }
 
-/* Toolbar container */
+/* Toolbar container - À GAUCHE aussi */
 .fm-toolbar {
   font-family: var(--fm-font); position: fixed;
-  right: 12px; top: 60px; z-index: var(--fm-z);
+  left: 12px; top: 60px; z-index: var(--fm-z);
   width: 380px; max-width: calc(100% - 24px);
   background: var(--fm-ui-bg); border: 1px solid var(--fm-ui-border);
   border-radius: var(--fm-radius); padding: 14px;
@@ -118,7 +100,7 @@ p, li { text-align: left; max-width: 75ch; }
 }
 @media (max-width: 420px) { 
   .fm-toolbar { left: 12px; right: 12px; width: auto; top: 60px; } 
-  .fm-toggle-btn { right: 12px; left: auto; width: auto; }
+  .fm-toggle-btn { left: 12px; right: auto; width: auto; }
 }
 
 .fm-toolbar header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
@@ -190,103 +172,60 @@ input[type="file"]:focus { outline:3px solid var(--fm-focus); outline-offset:2px
   outline-offset:2px!important; 
 }
 .fm-highlight { background:#fff06b; border-radius:2px; }
-.fm-applied p, .fm-applied li { text-align:left!important; max-width:75ch; }
 .fm-toolbar button, .fm-toolbar input, .fm-toolbar select { min-height:44px; }
 
-/* Themes - Application FORCÉE sur toute la page */
-.fm-theme-light {
-  --fm-bg:#ffffff !important;
-  --fm-fg:#0b0b0b !important;
-  --fm-accent:#005f73 !important;
-}
-.fm-theme-light * {
-  background-color: var(--fm-bg) !important;
-  color: var(--fm-fg) !important;
-}
+/* Themes - Application sur les boîtes de contenu */
 .fm-theme-light .glass-effect,
 .fm-theme-light .result-box,
-.fm-theme-light .bg-white {
+.fm-theme-light .bg-white,
+.fm-theme-light div[class*="bg-"] {
   background: rgba(255, 255, 255, 0.95) !important;
+  color: #0b0b0b !important;
 }
 
-.fm-theme-dark {
-  --fm-bg:#0b0b0b !important;
-  --fm-fg:#ffffff !important;
-  --fm-accent:#ffd166 !important;
-}
-.fm-theme-dark * {
-  background-color: var(--fm-bg) !important;
-  color: var(--fm-fg) !important;
-}
 .fm-theme-dark .glass-effect,
 .fm-theme-dark .result-box,
-.fm-theme-dark .bg-white {
+.fm-theme-dark .bg-white,
+.fm-theme-dark div[class*="bg-"] {
   background: rgba(20, 20, 20, 0.95) !important;
+  color: #ffffff !important;
 }
 
-.fm-theme-sepia {
-  --fm-bg:#f4ecd8 !important;
-  --fm-fg:#2d2d25 !important;
-  --fm-accent:#8b5e3c !important;
-}
-.fm-theme-sepia * {
-  background-color: var(--fm-bg) !important;
-  color: var(--fm-fg) !important;
-}
 .fm-theme-sepia .glass-effect,
 .fm-theme-sepia .result-box,
-.fm-theme-sepia .bg-white {
+.fm-theme-sepia .bg-white,
+.fm-theme-sepia div[class*="bg-"] {
   background: rgba(244, 236, 216, 0.95) !important;
+  color: #2d2d25 !important;
 }
 
-.fm-theme-red {
-  --fm-bg:#fff5f5 !important;
-  --fm-fg:#3b0000 !important;
-  --fm-accent:#cc0000 !important;
-}
-.fm-theme-red * {
-  background-color: var(--fm-bg) !important;
-  color: var(--fm-fg) !important;
-}
 .fm-theme-red .glass-effect,
 .fm-theme-red .result-box,
-.fm-theme-red .bg-white {
+.fm-theme-red .bg-white,
+.fm-theme-red div[class*="bg-"] {
   background: rgba(255, 245, 245, 0.95) !important;
+  color: #3b0000 !important;
 }
 
-.fm-theme-blue {
-  --fm-bg:#f0f7ff !important;
-  --fm-fg:#002b4d !important;
-  --fm-accent:#0d6efd !important;
-}
-.fm-theme-blue * {
-  background-color: var(--fm-bg) !important;
-  color: var(--fm-fg) !important;
-}
 .fm-theme-blue .glass-effect,
 .fm-theme-blue .result-box,
-.fm-theme-blue .bg-white {
+.fm-theme-blue .bg-white,
+.fm-theme-blue div[class*="bg-"] {
   background: rgba(240, 247, 255, 0.95) !important;
+  color: #002b4d !important;
 }
 
-.fm-theme-high-contrast {
-  --fm-bg:#000 !important;
-  --fm-fg:#fff !important;
-  --fm-accent:#ffff00 !important;
-}
-.fm-theme-high-contrast * {
-  background-color: var(--fm-bg) !important;
-  color: var(--fm-fg) !important;
-}
 .fm-theme-high-contrast .glass-effect,
 .fm-theme-high-contrast .result-box,
-.fm-theme-high-contrast .bg-white {
+.fm-theme-high-contrast .bg-white,
+.fm-theme-high-contrast div[class*="bg-"] {
   background: rgba(0, 0, 0, 0.95) !important;
+  color: #fff !important;
   border-color: #fff !important;
 }
 
 /* Préserver le fond dégradé original du body */
-body.fm-applied {
+body {
   background: linear-gradient(135deg, 
     #4a4a4a 0%, #4a4a4a 14.28%,
     #22c55e 14.28%, #22c55e 28.56%,
@@ -305,12 +244,6 @@ body.fm-applied {
 .fm-falc .fm-toolbar { font-size:1.05rem; }
 .fm-falc .fm-toolbar .fm-simplified { display:inline!important; }
 .fm-falc .fm-toolbar .fm-verbose { display:none!important; }
-.fm-falc * { 
-  font-size:calc(var(--fm-base-size)*1.2)!important; 
-  line-height:1.9!important; 
-  letter-spacing:0.04em!important; 
-  word-spacing:0.08em!important; 
-}
 
 /* Règles de lecture, bordures blocs */
 .fm-read-ruler { 
@@ -336,17 +269,6 @@ html, body {
 
 body {
     box-sizing: border-box;
-    background: linear-gradient(135deg, 
-        #4a4a4a 0%, #4a4a4a 14.28%,
-        #22c55e 14.28%, #22c55e 28.56%,
-        #3b82f6 28.56%, #3b82f6 42.84%,
-        #ffffff 42.84%, #ffffff 57.12%,
-        #fbbf24 57.12%, #fbbf24 71.4%,
-        #dc2626 71.4%, #dc2626 85.68%,
-        #4a4a4a 85.68%, #4a4a4a 100%);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
     min-height: 100%;
 }
 
@@ -391,7 +313,7 @@ body {
     </style>
 </head>
 <body class="min-h-full">
-    <!-- Bouton d'ouverture de la toolbar -->
+    <!-- Bouton d'ouverture de la toolbar - À GAUCHE -->
     <button id="fmToggleButton" class="fm-toggle-btn" aria-label="Ouvrir les paramètres d'accessibilité">
         Accessibilité / Paramètres
     </button>
@@ -586,40 +508,40 @@ body {
                                             <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
                                                 <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="Twitter/X">
                                                 <span>Twitter/X</span>
-                                        </label>
-                                        <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                            <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="Instagram">
-                                            <span>Instagram</span>
-                                        </label>
-                                        <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                            <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="LinkedIn">
-                                            <span>LinkedIn</span>
-                                        </label>
-                                        <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                            <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="YouTube">
-                                            <span>YouTube</span>
-                                        </label>
-                                        <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
-                                            <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="TikTok">
-                                            <span>TikTok</span>
-                                        </label>
+                                            </label>
+                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
+                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="Instagram">
+                                                <span>Instagram</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
+                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="LinkedIn">
+                                                <span>LinkedIn</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
+                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="YouTube">
+                                                <span>YouTube</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
+                                                <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="TikTok">
+                                                <span>TikTok</span>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <label for="socialLogosLocation" class="block text-sm font-medium text-gray-800 mb-2">Emplacement des logos sociaux</label>
-                                    <input 
-                                        type="text" 
-                                        id="socialLogosLocation" 
-                                        class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        placeholder="Ex: en bas à droite"
-                                    >
+                                    <div>
+                                        <label for="socialLogosLocation" class="block text-sm font-medium text-gray-800 mb-2">Emplacement des logos sociaux</label>
+                                        <input 
+                                            type="text" 
+                                            id="socialLogosLocation" 
+                                            class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            placeholder="Ex: en bas à droite"
+                                        >
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Section Communiqué de presse -->
+                <!-- Section Communiqué de presse -->
                 <div id="pressSection" class="hidden">
                     <!-- Situation du communiqué -->
                     <div class="glass-effect rounded-lg p-6">
@@ -647,7 +569,8 @@ body {
                         <h3 class="text-xl font-semibold mb-4 text-gray-800">Titre du communiqué</h3>
                         <div class="space-y-4">
                             <div>
-                                <label for="pressTitle" class="block text-sm font-medium text-gray-800 mb-2">Titre principal</label>
+                                <label for="pressTitle" class="block text-sm font-medium text-gray-800 mb-2">Titre principal
+                                    <label for="pressTitle" class="block text-sm font-medium text-gray-800 mb-2">Titre principal</label>
                                 <input 
                                     type="text" 
                                     id="pressTitle" 
@@ -1068,14 +991,31 @@ const fm = {
       "fm-theme-light","fm-theme-dark","fm-theme-sepia","fm-theme-red","fm-theme-blue","fm-theme-high-contrast"
     );
     html.classList.add("fm-theme-"+this.settings.theme);
-    html.style.setProperty("--fm-scale",this.settings.fontSize);
-    html.style.setProperty("--fm-brightness",this.settings.brightness);
-    html.style.setProperty("--fm-line-height",this.settings.lineHeight);
-    html.style.setProperty("--fm-letter-spacing",this.settings.letterSpacing+"em");
-    html.style.setProperty("--fm-word-spacing",this.settings.wordSpacing+"em");
-    html.style.setProperty("--fm-zoom-global",this.settings.zoomGlobal);
-    html.style.setProperty("--fm-zoom-text",this.settings.zoomText);
-    html.style.setProperty("--fm-font",this.settings.font);
+    
+    // Application FORCÉE avec JavaScript sur TOUS les éléments (sauf body et toolbar)
+    const allElements = document.querySelectorAll('*:not(body):not(.fm-toolbar):not(.fm-toolbar *)');
+    allElements.forEach(el => {
+      // Police
+      el.style.fontFamily = this.settings.font + ', sans-serif';
+      
+      // Taille du texte
+      const currentSize = window.getComputedStyle(el).fontSize;
+      const currentSizeNum = parseFloat(currentSize);
+      el.style.fontSize = (currentSizeNum * this.settings.fontSize) + 'px';
+      
+      // Interligne
+      el.style.lineHeight = this.settings.lineHeight;
+      
+      // Espacement lettres
+      el.style.letterSpacing = this.settings.letterSpacing + 'em';
+      
+      // Espacement mots
+      el.style.wordSpacing = this.settings.wordSpacing + 'em';
+    });
+    
+    // Luminosité sur body
+    document.body.style.filter = 'brightness(' + this.settings.brightness + ')';
+    
     html.classList.toggle("fm-falc",this.settings.falc>0);
   },
   exportJSON:function(){ 
@@ -1259,4 +1199,4 @@ document.getElementById("fm-import").addEventListener("change",e=>{
 /* End of Faites Mieux - accessible-core.js */
     </script>
 </body>
-</html>
+</html> 
