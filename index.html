@@ -41,8 +41,23 @@
   --fm-ui-border: #d0d0d0;
   --fm-radius: 10px;
   --fm-z: 2147483000;
-  --fm-bg: #ffffff;
-  --fm-fg: #0b0b0b;
+}
+
+/* Skip link - ACCESSIBILITÉ */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 9999;
+  font-weight: bold;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #ffb703;
 }
 
 /* Bouton d'ouverture de la toolbar - À GAUCHE */
@@ -71,27 +86,22 @@
   outline: 3px solid var(--fm-focus);
   outline-offset: 2px;
 }
-.fm-toggle-btn.hidden {
-  display: none;
-}
 
-/* Skip link */
-.fm-skip-link {
-  position: absolute; left: 8px; top: -48px;
-  background: #fff200; color: #000; padding: 8px 10px; border-radius: 4px;
-  z-index: calc(var(--fm-z) + 100); box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-  text-decoration: none;
-}
-.fm-skip-link:focus { top: 8px; outline: none; }
-
-/* Toolbar container - À GAUCHE aussi */
+/* Toolbar container - À GAUCHE */
 .fm-toolbar {
-  font-family: var(--fm-font); position: fixed;
-  left: 12px; top: 60px; z-index: var(--fm-z);
-  width: 380px; max-width: calc(100% - 24px);
-  background: var(--fm-ui-bg); border: 1px solid var(--fm-ui-border);
-  border-radius: var(--fm-radius); padding: 14px;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.12); color: inherit;
+  font-family: var(--fm-font);
+  position: fixed;
+  left: 12px;
+  top: 60px;
+  z-index: var(--fm-z);
+  width: 380px;
+  max-width: calc(100% - 24px);
+  background: var(--fm-ui-bg);
+  border: 1px solid var(--fm-ui-border);
+  border-radius: var(--fm-radius);
+  padding: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  color: #000;
   font-size: 0.95rem;
   display: none;
 }
@@ -100,19 +110,19 @@
 }
 @media (max-width: 420px) { 
   .fm-toolbar { left: 12px; right: 12px; width: auto; top: 60px; } 
-  .fm-toggle-btn { left: 12px; right: auto; width: auto; }
+  .fm-toggle-btn { left: 12px; width: auto; }
 }
 
 .fm-toolbar header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
-.fm-toolbar h2 { margin:0; font-size:1rem; color: inherit; }
-.fm-close { background:none; border:none; padding:6px; cursor:pointer; border-radius:6px; font-size:1.5rem; color: inherit; }
+.fm-toolbar h2 { margin:0; font-size:1rem; color: #000; }
+.fm-close { background:none; border:none; padding:6px; cursor:pointer; border-radius:6px; font-size:1.5rem; color: #000; }
 .fm-close:hover { background: rgba(0,0,0,0.05); }
 .fm-close:focus { outline:3px solid var(--fm-focus); outline-offset:2px; }
 
 .fm-section { margin-top:10px; }
-.fm-section label { color: inherit; }
+.fm-section label { color: #000; }
 .fm-row { display:flex; align-items:center; gap:8px; margin-top:8px; }
-.fm-row label { min-width:120px; font-weight:600; font-size:0.92rem; color: inherit; }
+.fm-row label { min-width:120px; font-weight:600; font-size:0.92rem; color: #000; }
 .fm-row .fm-control { flex:1; }
 
 .fm-control { 
@@ -161,103 +171,27 @@ input[type="file"] {
 }
 input[type="file"]:focus { outline:3px solid var(--fm-focus); outline-offset:2px; }
 
-.fm-value { min-width:48px; text-align:right; font-weight:700; color: inherit; }
-.fm-sr-only { 
-  position:absolute!important;height:1px;width:1px;
-  overflow:hidden;clip:rect(1px,1px,1px,1px);
-  white-space:nowrap;border:0;padding:0;margin:-1px; 
-}
-.fm-applied :focus { 
-  outline:3px solid var(--fm-focus)!important; 
-  outline-offset:2px!important; 
-}
-.fm-highlight { background:#fff06b; border-radius:2px; }
+.fm-value { min-width:48px; text-align:right; font-weight:700; color: #000; }
 .fm-toolbar button, .fm-toolbar input, .fm-toolbar select { min-height:44px; }
 
-/* Themes - Application sur les boîtes de contenu */
-.fm-theme-light .glass-effect,
-.fm-theme-light .result-box,
-.fm-theme-light .bg-white,
-.fm-theme-light div[class*="bg-"] {
-  background: rgba(255, 255, 255, 0.95) !important;
-  color: #0b0b0b !important;
+/* Zone d'annonces pour lecteurs d'écran */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
-.fm-theme-dark .glass-effect,
-.fm-theme-dark .result-box,
-.fm-theme-dark .bg-white,
-.fm-theme-dark div[class*="bg-"] {
-  background: rgba(20, 20, 20, 0.95) !important;
-  color: #ffffff !important;
-}
-
-.fm-theme-sepia .glass-effect,
-.fm-theme-sepia .result-box,
-.fm-theme-sepia .bg-white,
-.fm-theme-sepia div[class*="bg-"] {
-  background: rgba(244, 236, 216, 0.95) !important;
-  color: #2d2d25 !important;
-}
-
-.fm-theme-red .glass-effect,
-.fm-theme-red .result-box,
-.fm-theme-red .bg-white,
-.fm-theme-red div[class*="bg-"] {
-  background: rgba(255, 245, 245, 0.95) !important;
-  color: #3b0000 !important;
-}
-
-.fm-theme-blue .glass-effect,
-.fm-theme-blue .result-box,
-.fm-theme-blue .bg-white,
-.fm-theme-blue div[class*="bg-"] {
-  background: rgba(240, 247, 255, 0.95) !important;
-  color: #002b4d !important;
-}
-
-.fm-theme-high-contrast .glass-effect,
-.fm-theme-high-contrast .result-box,
-.fm-theme-high-contrast .bg-white,
-.fm-theme-high-contrast div[class*="bg-"] {
-  background: rgba(0, 0, 0, 0.95) !important;
-  color: #fff !important;
-  border-color: #fff !important;
-}
-
-/* Préserver le fond dégradé original du body */
-body {
-  background: linear-gradient(135deg, 
-    #4a4a4a 0%, #4a4a4a 14.28%,
-    #22c55e 14.28%, #22c55e 28.56%,
-    #3b82f6 28.56%, #3b82f6 42.84%,
-    #ffffff 42.84%, #ffffff 57.12%,
-    #fbbf24 57.12%, #fbbf24 71.4%,
-    #dc2626 71.4%, #dc2626 85.68%,
-    #4a4a4a 85.68%, #4a4a4a 100%) !important;
-  background-attachment: fixed !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-}
-
-/* FALC / Lisibilité avancée */
-.fm-falc .fm-toolbar .fm-complex { display:none!important; }
-.fm-falc .fm-toolbar { font-size:1.05rem; }
-.fm-falc .fm-toolbar .fm-simplified { display:inline!important; }
-.fm-falc .fm-toolbar .fm-verbose { display:none!important; }
-
-/* Règles de lecture, bordures blocs */
-.fm-read-ruler { 
-  position:fixed; left:0; right:0; height:2px; 
-  background:rgba(255,180,0,0.9); pointer-events:none; 
-  z-index:calc(var(--fm-z)+10); display:none; 
-}
-.fm-read-ruler.visible { display:block; }
-.fm-block-borders * { outline:1px dashed rgba(0,0,0,0.12); }
-
-/* Footer signature */
-.fm-footer { 
-  margin-top:18px; font-weight:600; 
-  text-align:center; font-size:0.92rem; 
+/* Champs requis */
+.required::after {
+  content: " *";
+  color: #dc2626;
+  font-weight: bold;
 }
 
 /* Styles originaux du générateur */
@@ -269,6 +203,17 @@ html, body {
 
 body {
     box-sizing: border-box;
+    background: linear-gradient(135deg, 
+        #4a4a4a 0%, #4a4a4a 14.28%,
+        #22c55e 14.28%, #22c55e 28.56%,
+        #3b82f6 28.56%, #3b82f6 42.84%,
+        #ffffff 42.84%, #ffffff 57.12%,
+        #fbbf24 57.12%, #fbbf24 71.4%,
+        #dc2626 71.4%, #dc2626 85.68%,
+        #4a4a4a 85.68%, #4a4a4a 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
     min-height: 100%;
 }
 
@@ -313,14 +258,20 @@ body {
     </style>
 </head>
 <body class="min-h-full">
+    <!-- Skip link pour accessibilité -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
     <!-- Bouton d'ouverture de la toolbar - À GAUCHE -->
-    <button id="fmToggleButton" class="fm-toggle-btn" aria-label="Ouvrir les paramètres d'accessibilité">
+    <button id="fmToggleButton" class="fm-toggle-btn" aria-label="Ouvrir les paramètres d'accessibilité" aria-expanded="false">
         Accessibilité / Paramètres
     </button>
 
+    <!-- Zone d'annonces pour lecteurs d'écran -->
+    <div id="announcements" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
     <div class="container mx-auto px-4 py-8">
         <!-- Header -->
-        <div class="text-center mb-8">
+        <header role="banner" class="text-center mb-8">
             <div class="bg-white p-6 rounded-lg mx-auto max-w-2xl">
                 <h1 class="text-4xl md:text-5xl font-bold text-black mb-4">
                     Outil de Description d'Images
@@ -328,37 +279,37 @@ body {
                 <p class="text-xl text-black mb-2">Créez des descriptions accessibles pour vos visuels</p>
                 <p class="text-sm text-black">Créé par TiRacoon</p>
             </div>
-        </div>
+        </header>
 
         <!-- Main Form -->
-        <div class="max-w-4xl mx-auto">
-            <form id="descriptionForm" class="space-y-6">
+        <main id="main-content" role="main" class="max-w-4xl mx-auto">
+            <form id="descriptionForm" class="space-y-6" novalidate>
                 <!-- Type de contenu -->
-                <div class="glass-effect rounded-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Type de contenu</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <fieldset class="glass-effect rounded-lg p-6">
+                    <legend class="text-xl font-semibold mb-4 text-gray-800 required">Type de contenu</legend>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" role="radiogroup" aria-required="true">
                         <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
-                            <input type="radio" name="contentType" value="image" class="text-blue-500 focus:ring-blue-500">
+                            <input type="radio" name="contentType" value="image" class="text-blue-500 focus:ring-blue-500" required aria-required="true">
                             <div>
                                 <div class="font-medium">Image/Visuel</div>
                                 <div class="text-sm text-gray-600">Photo, illustration, graphique, infographie</div>
                             </div>
                         </label>
                         <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
-                            <input type="radio" name="contentType" value="press" class="text-blue-500 focus:ring-blue-500">
+                            <input type="radio" name="contentType" value="press" class="text-blue-500 focus:ring-blue-500" required aria-required="true">
                             <div>
                                 <div class="font-medium">Communiqué de presse</div>
                                 <div class="text-sm text-gray-600">Document texte, article, communiqué</div>
                             </div>
                         </label>
                     </div>
-                </div>
+                </fieldset>
 
                 <!-- Section Image/Visuel -->
-                <div id="imageSection" class="hidden">
+                <div id="imageSection" class="hidden" role="region" aria-label="Section description d'image">
                     <!-- Description de l'image -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</h3>
+                    <fieldset class="glass-effect rounded-lg p-6">
+                        <legend class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</legend>
                         <div class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
@@ -366,6 +317,7 @@ body {
                                     <select 
                                         id="imageTypeSelect" 
                                         class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        aria-label="Sélectionnez le type d'image"
                                     >
                                         <option value="">Sélectionner...</option>
                                         <option value="photo">Photo</option>
@@ -381,6 +333,7 @@ body {
                                     <select 
                                         id="imageFormat" 
                                         class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        aria-label="Sélectionnez le format de l'image"
                                     >
                                         <option value="">Sélectionner...</option>
                                         <option value="9/16">9/16 (story/ TikTok/Réel)</option>
@@ -399,6 +352,7 @@ body {
                                     rows="3" 
                                     class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Décrivez l'image de manière générale..."
+                                    aria-label="Saisissez une description générale de l'image"
                                 ></textarea>
                             </div>
                             
@@ -409,6 +363,7 @@ body {
                                     rows="2" 
                                     class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Décrivez l'arrière-plan..."
+                                    aria-label="Décrivez l'arrière-plan de l'image"
                                 ></textarea>
                             </div>
                             
@@ -419,6 +374,7 @@ body {
                                     rows="2" 
                                     class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Décrivez le premier plan..."
+                                    aria-label="Décrivez le premier plan de l'image"
                                 ></textarea>
                             </div>
                             
@@ -429,13 +385,14 @@ body {
                                     rows="3" 
                                     class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Quel est le message écrit ?"
+                                    aria-label="Saisissez le message ou texte présent sur l'image"
                                 ></textarea>
                             </div>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-800 mb-3">Écriture</label>
-                                    <div class="space-y-2">
+                                <fieldset>
+                                    <legend class="block text-sm font-medium text-gray-800 mb-3">Écriture</legend>
+                                    <div class="space-y-2" role="radiogroup" aria-label="Type d'écriture du texte">
                                         <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
                                             <input type="radio" name="textCase" value="minuscules" class="text-blue-500 focus:ring-blue-500">
                                             <span>Minuscules</span>
@@ -445,7 +402,7 @@ body {
                                             <span>Majuscules</span>
                                         </label>
                                     </div>
-                                </div>
+                                </fieldset>
                                 <div>
                                     <label for="fontColor" class="block text-sm font-medium text-gray-800 mb-2">Couleur de la police</label>
                                     <input 
@@ -453,20 +410,21 @@ body {
                                         id="fontColor" 
                                         class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="Ex: blanc, noir, rouge..."
+                                        aria-label="Indiquez la couleur de la police du texte"
                                     >
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
 
                     <!-- Logo et emplacement -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Logos et emplacement</h3>
+                    <fieldset class="glass-effect rounded-lg p-6">
+                        <legend class="text-xl font-semibold mb-4 text-gray-800">Logos et emplacement</legend>
                         <div class="space-y-4">
                             <!-- Logo principal -->
                             <div>
                                 <label class="flex items-center space-x-2 text-gray-800 cursor-pointer mb-3">
-                                    <input type="checkbox" id="hasMainLogo" class="rounded text-blue-500 focus:ring-blue-500">
+                                    <input type="checkbox" id="hasMainLogo" class="rounded text-blue-500 focus:ring-blue-500" aria-describedby="mainLogoDesc">
                                     <span class="font-medium">Logo principal</span>
                                 </label>
                                 <div id="mainLogoSection" class="hidden ml-6 space-y-3">
@@ -477,6 +435,7 @@ body {
                                             id="mainLogoDesc" 
                                             class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                             placeholder="Ex: Logo de l'entreprise XYZ"
+                                            aria-label="Décrivez le logo principal"
                                         >
                                     </div>
                                     <div>
@@ -486,6 +445,7 @@ body {
                                             id="mainLogoLocation" 
                                             class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                             placeholder="Ex: en haut à gauche"
+                                            aria-label="Indiquez l'emplacement du logo principal"
                                         >
                                     </div>
                                 </div>
@@ -494,12 +454,12 @@ body {
                             <!-- Logos réseaux sociaux -->
                             <div>
                                 <label class="flex items-center space-x-2 text-gray-800 cursor-pointer mb-3">
-                                    <input type="checkbox" id="hasSocialLogos" class="rounded text-blue-500 focus:ring-blue-500">
+                                    <input type="checkbox" id="hasSocialLogos" class="rounded text-blue-500 focus:ring-blue-500" aria-describedby="socialLogosDesc">
                                     <span class="font-medium">Logos réseaux sociaux</span>
                                 </label>
                                 <div id="socialLogosSection" class="hidden ml-6 space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-800 mb-2">Sélectionnez les réseaux présents</label>
+                                    <fieldset>
+                                        <legend class="block text-sm font-medium text-gray-800 mb-2">Sélectionnez les réseaux présents</legend>
                                         <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
                                             <label class="flex items-center space-x-2 text-gray-800 cursor-pointer">
                                                 <input type="checkbox" class="social-network rounded text-blue-500 focus:ring-blue-500" value="Facebook">
@@ -526,7 +486,7 @@ body {
                                                 <span>TikTok</span>
                                             </label>
                                         </div>
-                                    </div>
+                                    </fieldset>
                                     <div>
                                         <label for="socialLogosLocation" class="block text-sm font-medium text-gray-800 mb-2">Emplacement des logos sociaux</label>
                                         <input 
@@ -534,56 +494,57 @@ body {
                                             id="socialLogosLocation" 
                                             class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                             placeholder="Ex: en bas à droite"
+                                            aria-label="Indiquez l'emplacement des logos réseaux sociaux"
                                         >
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <!-- Section Communiqué de presse -->
-                <div id="pressSection" class="hidden">
+                <div id="pressSection" class="hidden" role="region" aria-label="Section communiqué de presse">
                     <!-- Situation du communiqué -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Situation du communiqué</h3>
-                        <div class="space-y-4">
+                    <fieldset class="glass-effect rounded-lg p-6">
+                        <legend class="text-xl font-semibold mb-4 text-gray-800 required">Situation du communiqué</legend>
+                        <div class="space-y-4" role="radiogroup" aria-required="true">
                             <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
-                                <input type="radio" name="pressSituation" value="new" class="text-blue-500 focus:ring-blue-500">
+                                <input type="radio" name="pressSituation" value="new" class="text-blue-500 focus:ring-blue-500" required aria-required="true">
                                 <div>
                                     <div class="font-medium">Nouveau communiqué</div>
                                     <div class="text-sm text-gray-600">(pas encore de lien accessible)</div>
                                 </div>
                             </label>
                             <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
-                                <input type="radio" name="pressSituation" value="existing" class="text-blue-500 focus:ring-blue-500">
+                                <input type="radio" name="pressSituation" value="existing" class="text-blue-500 focus:ring-blue-500" required aria-required="true">
                                 <div>
                                     <div class="font-medium">Communiqué avec lien accessible existant</div>
-                                    <div class="text-sm text-gray-600">Vous avez déjà un lien textup.fr</div>
+                                    <div class="text-sm text-gray-600">Vous avez déjà un lien textup.fr ou sur votre propre site</div>
                                 </div>
                             </label>
                         </div>
-                    </div>
+                    </fieldset>
 
                     <!-- Titre -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Titre du communiqué</h3>
+                    <fieldset class="glass-effect rounded-lg p-6">
+                        <legend class="text-xl font-semibold mb-4 text-gray-800">Titre du communiqué</legend>
                         <div class="space-y-4">
                             <div>
-                                <label for="pressTitle" class="block text-sm font-medium text-gray-800 mb-2">Titre principal
-                                    <label for="pressTitle" class="block text-sm font-medium text-gray-800 mb-2">Titre principal</label>
+                                <label for="pressTitle" class="block text-sm font-medium text-gray-800 mb-2">Titre principal</label>
                                 <input 
                                     type="text" 
                                     id="pressTitle" 
                                     class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Ex: Ministère du handicap ? Encore un oubli de Sébastien Lecornu II ?"
+                                    aria-label="Saisissez le titre principal du communiqué"
                                 >
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
 
                     <!-- Description de l'image -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</h3>
+                    <fieldset class="glass-effect rounded-lg p-6">
+                        <legend class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</legend>
                         <div class="space-y-4">
                             <div>
                                 <label for="pressImageDesc" class="block text-sm font-medium text-gray-800 mb-2">Décrivez le papier à en-tête, l'instance dont émane le communiqué...</label>
@@ -592,14 +553,15 @@ body {
                                     rows="3" 
                                     class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Ex: Document officiel avec en-tête du Ministère des Solidarités et de la Santé..."
+                                    aria-label="Décrivez l'apparence du communiqué (en-tête, logo, mise en page)"
                                 ></textarea>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
 
                     <!-- Texte du communiqué -->
-                    <div class="glass-effect rounded-lg p-6">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Texte du communiqué</h3>
+                    <fieldset class="glass-effect rounded-lg p-6">
+                        <legend class="text-xl font-semibold mb-4 text-gray-800">Texte du communiqué</legend>
                         <div class="space-y-4">
                             <div>
                                 <label for="pressContent" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le texte complet à envoyer sur textup.fr...</label>
@@ -608,10 +570,11 @@ body {
                                     rows="8" 
                                     class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
                                     placeholder="Collez ici le texte intégral du communiqué de presse... (aucune limite de caractères)"
+                                    aria-label="Collez le texte complet du communiqué de presse"
                                 ></textarea>
                             </div>
                             
-                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500" role="complementary" aria-label="Instructions pour textup.fr">
                                 <p class="text-gray-800 mb-3"><strong>Étape suivante :</strong> Copiez ce texte et envoyez-le sur textup.fr</p>
                                 <p class="text-sm text-gray-700 mb-3">
                                     <strong>Qu'est-ce que textup.fr ?</strong> C'est un hébergeur de texte gratuit qui permet de s'affranchir des limites de caractères des réseaux sociaux.
@@ -621,6 +584,7 @@ body {
                                         type="button" 
                                         id="copyTextButton" 
                                         class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-medium"
+                                        aria-label="Copier le texte du communiqué dans le presse-papier"
                                     >
                                         Copier le texte
                                     </button>
@@ -629,22 +593,23 @@ body {
                                         target="_blank" 
                                         rel="noopener noreferrer"
                                         class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center"
+                                        aria-label="Ouvrir textup.fr dans un nouvel onglet"
                                     >
                                         Ouvrir textup.fr
-                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                         </svg>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
 
                     <!-- Section pour nouveau communiqué -->
                     <div id="newPressSection" class="hidden">
                         <!-- Lien textup.fr généré -->
-                        <div class="glass-effect rounded-lg p-6">
-                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr généré</h3>
+                        <fieldset class="glass-effect rounded-lg p-6">
+                            <legend class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr généré</legend>
                             <div class="space-y-4">
                                 <div>
                                     <label for="textupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le lien généré par textup.fr...</label>
@@ -653,29 +618,31 @@ body {
                                         id="textupLink" 
                                         class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="Ex: https://textup.fr/123456789"
+                                        aria-label="Collez le lien généré par textup.fr"
                                     >
                                 </div>
                             </div>
-                        </div>
+                        </fieldset>
                     </div>
 
                     <!-- Section pour communiqué existant -->
                     <div id="existingPressSection" class="hidden">
-                        <!-- Lien textup.fr existant -->
-                        <div class="glass-effect rounded-lg p-6">
-                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr existant</h3>
+                        <!-- Lien textup.fr ou site existant -->
+                        <fieldset class="glass-effect rounded-lg p-6">
+                            <legend class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr ou de votre site existant</legend>
                             <div class="space-y-4">
                                 <div>
-                                    <label for="existingTextupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici votre lien textup.fr existant...</label>
+                                    <label for="existingTextupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici votre lien textup.fr ou de votre site existant...</label>
                                     <input 
                                         type="url" 
                                         id="existingTextupLink" 
                                         class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        placeholder="Ex: https://textup.fr/123456789"
+                                        placeholder="Ex: https://textup.fr/123456789 ou https://votresite.fr/communique"
+                                        aria-label="Collez votre lien textup.fr ou de votre site existant"
                                     >
                                 </div>
                             </div>
-                        </div>
+                        </fieldset>
                     </div>
                 </div>
 
@@ -684,6 +651,7 @@ body {
                     <button 
                         type="submit" 
                         class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                        aria-label="Générer la description accessible"
                     >
                         Générer la description
                     </button>
@@ -691,32 +659,42 @@ body {
             </form>
 
             <!-- Résultat -->
-            <div id="result" class="hidden mt-8 fade-in">
+            <div id="result" class="hidden mt-8 fade-in" role="region" aria-label="Résultat de la description générée">
                 <div class="result-box rounded-lg p-6 text-gray-800">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-xl font-semibold text-gray-800">Votre description accessible :</h3>
                         <button 
                             id="copyButton" 
                             class="copy-button bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium"
+                            aria-label="Copier la description dans le presse-papier"
                         >
                             Copier
                         </button>
                     </div>
-                    <div id="generatedDescription" class="bg-gray-50 p-4 rounded border text-gray-700 leading-relaxed"></div>
+                    <div id="generatedDescription" class="bg-gray-50 p-4 rounded border text-gray-700 leading-relaxed" aria-live="polite"></div>
                 </div>
             </div>
-        </div>
+        </main>
 
         <!-- Footer -->
-        <div class="text-center mt-12">
+        <footer role="contentinfo" class="text-center mt-12">
             <div class="bg-white p-3 rounded-lg mx-auto max-w-sm shadow-lg">
                 <p class="text-sm text-gray-700 font-medium">TiRacoon - Pour un monde virtuel plus accessible</p>
             </div>
-        </div>
+        </footer>
     </div>
 
     <!-- Script du générateur de descriptions -->
     <script>
+        // Fonction pour annoncer aux lecteurs d'écran
+        function announce(message) {
+            const announcer = document.getElementById('announcements');
+            announcer.textContent = message;
+            setTimeout(() => {
+                announcer.textContent = '';
+            }, 1000);
+        }
+
         // Gestion de l'affichage des sections
         document.querySelectorAll('input[name="contentType"]').forEach(radio => {
             radio.addEventListener('change', function() {
@@ -726,9 +704,11 @@ body {
                 if (this.value === 'image') {
                     imageSection.classList.remove('hidden');
                     pressSection.classList.add('hidden');
+                    announce('Section Image/Visuel affichée');
                 } else if (this.value === 'press') {
                     pressSection.classList.remove('hidden');
                     imageSection.classList.add('hidden');
+                    announce('Section Communiqué de presse affichée');
                 }
             });
         });
@@ -738,8 +718,10 @@ body {
             const section = document.getElementById('mainLogoSection');
             if (this.checked) {
                 section.classList.remove('hidden');
+                announce('Section logo principal affichée');
             } else {
                 section.classList.add('hidden');
+                announce('Section logo principal masquée');
             }
         });
 
@@ -747,8 +729,10 @@ body {
             const section = document.getElementById('socialLogosSection');
             if (this.checked) {
                 section.classList.remove('hidden');
+                announce('Section logos réseaux sociaux affichée');
             } else {
                 section.classList.add('hidden');
+                announce('Section logos réseaux sociaux masquée');
             }
         });
 
@@ -761,9 +745,11 @@ body {
                 if (this.value === 'new') {
                     newSection.classList.remove('hidden');
                     existingSection.classList.add('hidden');
+                    announce('Section nouveau communiqué affichée');
                 } else if (this.value === 'existing') {
                     existingSection.classList.remove('hidden');
                     newSection.classList.add('hidden');
+                    announce('Section communiqué existant affichée');
                 }
             });
         });
@@ -777,13 +763,18 @@ body {
                     const originalText = button.textContent;
                     button.textContent = 'Texte copié !';
                     button.classList.add('pulse-animation');
+                    announce('Texte du communiqué copié dans le presse-papier');
                     
                     setTimeout(function() {
                         button.textContent = originalText;
                         button.classList.remove('pulse-animation');
                     }, 2000);
+                }).catch(function(err) {
+                    announce('Erreur lors de la copie du texte');
+                    alert('Erreur lors de la copie. Veuillez réessayer.');
                 });
             } else {
+                announce('Aucun texte à copier');
                 alert('Veuillez d\'abord saisir le texte du communiqué.');
             }
         });
@@ -792,6 +783,13 @@ body {
             e.preventDefault();
             
             const contentType = document.querySelector('input[name="contentType"]:checked')?.value;
+            
+            if (!contentType) {
+                announce('Erreur : veuillez sélectionner un type de contenu');
+                alert('Veuillez sélectionner un type de contenu (Image/Visuel ou Communiqué de presse).');
+                return;
+            }
+            
             let description = '';
             
             if (contentType === 'image') {
@@ -910,6 +908,13 @@ body {
             } else if (contentType === 'press') {
                 // Récupération des valeurs pour communiqué de presse
                 const pressSituation = document.querySelector('input[name="pressSituation"]:checked')?.value;
+                
+                if (!pressSituation) {
+                    announce('Erreur : veuillez sélectionner une situation de communiqué');
+                    alert('Veuillez sélectionner si vous avez un nouveau communiqué ou un lien existant.');
+                    return;
+                }
+                
                 const pressTitle = document.getElementById('pressTitle').value;
                 const pressImageDesc = document.getElementById('pressImageDesc').value;
                 
@@ -949,8 +954,10 @@ body {
                 document.getElementById('generatedDescription').textContent = description;
                 document.getElementById('result').classList.remove('hidden');
                 document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+                announce('Description générée avec succès');
             } else {
-                alert('Veuillez sélectionner un type de contenu et remplir au moins un champ pour générer une description.');
+                announce('Erreur : veuillez remplir au moins un champ');
+                alert('Veuillez remplir au moins un champ pour générer une description.');
             }
         });
         
@@ -962,61 +969,94 @@ body {
                 const originalText = button.textContent;
                 button.textContent = 'Copié !';
                 button.classList.add('pulse-animation');
+                announce('Description copiée dans le presse-papier');
                 
                 setTimeout(function() {
                     button.textContent = originalText;
                     button.classList.remove('pulse-animation');
                 }, 2000);
+            }).catch(function(err) {
+                announce('Erreur lors de la copie');
+                alert('Erreur lors de la copie. Veuillez réessayer.');
             });
         });
     </script>
-    <!-- Faites Mieux - Toolbar d'accessibilité -->
+    <!-- Faites Mieux - Toolbar d'accessibilité SIMPLIFIÉE -->
     <script>
-/* Faites Mieux, par Ti Racoon - accessible-core.js */
+/* Faites Mieux, par Ti Racoon - Version simplifiée et stable */
 
 /* Variables et utilitaires */
 const fm = {
   settings: {
-    theme:"light", font:"Lexend", fontSize:1, brightness:1,
-    lineHeight:1.6, letterSpacing:0.02, wordSpacing:0.04,
-    falc:0, readHighlight:true, zoomGlobal:1, zoomText:1,
-    profiles:{}
+    theme:"light", 
+    font:"Lexend", 
+    fontSize:16, 
+    brightness:1,
+    lineHeight:1.6, 
+    letterSpacing:0, 
+    wordSpacing:0
   },
-  save:function(){ localStorage.setItem("fm-settings",JSON.stringify(this.settings)); },
-  load:function(){ const s=localStorage.getItem("fm-settings"); if(s)this.settings=JSON.parse(s); },
+  save:function(){ 
+    localStorage.setItem("fm-settings",JSON.stringify(this.settings)); 
+  },
+  load:function(){ 
+    const s=localStorage.getItem("fm-settings"); 
+    if(s) {
+      try {
+        this.settings=JSON.parse(s);
+      } catch(e) {
+        console.error('Erreur chargement paramètres:', e);
+      }
+    }
+  },
   apply:function(){
-    const html=document.documentElement;
-    html.classList.add("fm-applied");
-    html.classList.remove(
-      "fm-theme-light","fm-theme-dark","fm-theme-sepia","fm-theme-red","fm-theme-blue","fm-theme-high-contrast"
-    );
-    html.classList.add("fm-theme-"+this.settings.theme);
+    const container = document.getElementById('main-content');
+    if (!container) return;
     
-    // Application FORCÉE avec JavaScript sur TOUS les éléments (sauf body et toolbar)
-    const allElements = document.querySelectorAll('*:not(body):not(.fm-toolbar):not(.fm-toolbar *)');
-    allElements.forEach(el => {
-      // Police
-      el.style.fontFamily = this.settings.font + ', sans-serif';
-      
-      // Taille du texte
-      const currentSize = window.getComputedStyle(el).fontSize;
-      const currentSizeNum = parseFloat(currentSize);
-      el.style.fontSize = (currentSizeNum * this.settings.fontSize) + 'px';
-      
-      // Interligne
-      el.style.lineHeight = this.settings.lineHeight;
-      
-      // Espacement lettres
-      el.style.letterSpacing = this.settings.letterSpacing + 'em';
-      
-      // Espacement mots
-      el.style.wordSpacing = this.settings.wordSpacing + 'em';
-    });
+    // Application de la police
+    container.style.fontFamily = this.settings.font + ', sans-serif';
     
-    // Luminosité sur body
+    // Application de la taille
+    container.style.fontSize = this.settings.fontSize + 'px';
+    
+    // Application de l'interligne
+    container.style.lineHeight = this.settings.lineHeight;
+    
+    // Application de l'espacement lettres
+    container.style.letterSpacing = this.settings.letterSpacing + 'px';
+    
+    // Application de l'espacement mots
+    container.style.wordSpacing = this.settings.wordSpacing + 'px';
+    
+    // Application de la luminosité
     document.body.style.filter = 'brightness(' + this.settings.brightness + ')';
     
-    html.classList.toggle("fm-falc",this.settings.falc>0);
+    // Application du thème
+    document.documentElement.classList.remove(
+      "fm-theme-light","fm-theme-dark","fm-theme-sepia","fm-theme-red","fm-theme-blue","fm-theme-high-contrast"
+    );
+    document.documentElement.classList.add("fm-theme-"+this.settings.theme);
+    
+    this.applyThemeColors();
+  },
+  applyThemeColors:function(){
+    const themes = {
+      light: { bg: 'rgba(255, 255, 255, 0.95)', fg: '#0b0b0b' },
+      dark: { bg: 'rgba(20, 20, 20, 0.95)', fg: '#ffffff' },
+      sepia: { bg: 'rgba(244, 236, 216, 0.95)', fg: '#2d2d25' },
+      red: { bg: 'rgba(255, 245, 245, 0.95)', fg: '#3b0000' },
+      blue: { bg: 'rgba(240, 247, 255, 0.95)', fg: '#002b4d' },
+      'high-contrast': { bg: 'rgba(0, 0, 0, 0.95)', fg: '#fff' }
+    };
+    
+    const theme = themes[this.settings.theme] || themes.light;
+    
+    // Application sur les boîtes de contenu
+    const boxes = document.querySelectorAll('.glass-effect, .result-box, .bg-white');
+    boxes.forEach(box => {
+      box.style.backgroundColor = theme.bg;
+      box.style.color = theme.fg;
+    });
   },
   exportJSON:function(){ 
     const data=JSON.stringify(this.settings,null,2);
@@ -1025,6 +1065,7 @@ const fm = {
     a.href=URL.createObjectURL(blob);
     a.download="fm-settings.json";
     a.click();
+    announce('Paramètres exportés');
   },
   importJSON:function(file){
     const reader=new FileReader();
@@ -1032,9 +1073,14 @@ const fm = {
       try{
         const imp=JSON.parse(e.target.result);
         Object.assign(this.settings,imp);
-        this.apply(); this.save();
+        this.apply(); 
+        this.save();
+        announce('Préférences importées avec succès');
         alert("Préférences importées !");
-      }catch(err){alert("Erreur import JSON: "+err);}
+      }catch(err){
+        announce('Erreur lors de l\'import');
+        alert("Erreur import JSON: "+err);
+      }
     };
     reader.readAsText(file);
   },
@@ -1047,19 +1093,25 @@ const fm = {
     window.speechSynthesis.speak(u);
   }
 };
+
+// Chargement des paramètres au démarrage
 fm.load();
-fm.apply();
+
+// Application après chargement complet de la page
+window.addEventListener('DOMContentLoaded', function() {
+  fm.apply();
+});
 
 /* Toolbar HTML */
 const fmToolbarHTML=`
-<div class="fm-toolbar" role="dialog" aria-label="Toolbar d'accessibilité Faites Mieux">
+<div class="fm-toolbar" role="dialog" aria-label="Barre d'outils d'accessibilité Faites Mieux" aria-modal="false">
 <header>
-  <h2>Faites Mieux</h2>
-  <button class="fm-close" aria-label="Fermer la toolbar">×</button>
+  <h2 id="fm-toolbar-title">Faites Mieux</h2>
+  <button class="fm-close" aria-label="Fermer la barre d'outils d'accessibilité">×</button>
 </header>
 <div class="fm-section">
   <label for="fm-theme">Thème</label>
-  <select id="fm-theme" class="fm-control" aria-label="Sélection du thème">
+  <select id="fm-theme" class="fm-control" aria-label="Sélection du thème de couleurs">
     <option value="light">Clair</option>
     <option value="dark">Sombre</option>
     <option value="sepia">Sépia</option>
@@ -1070,7 +1122,7 @@ const fmToolbarHTML=`
 </div>
 <div class="fm-section">
   <label for="fm-font">Police</label>
-  <select id="fm-font" class="fm-control" aria-label="Sélection de la police">
+  <select id="fm-font" class="fm-control" aria-label="Sélection de la police de caractères">
     <option value="Lexend">Lexend</option>
     <option value="Atkinson Hyperlegible">Atkinson Hyperlegible</option>
     <option value="OpenDyslexic">OpenDyslexic</option>
@@ -1079,44 +1131,42 @@ const fmToolbarHTML=`
 </div>
 <div class="fm-section fm-row">
   <label for="fm-fontSize">Taille texte</label>
-  <input type="range" min="0.5" max="2" step="0.05" value="${fm.settings.fontSize}" id="fm-fontSize" aria-label="Curseur taille du texte">
-  <span class="fm-value" id="fm-fontSize-val">${(fm.settings.fontSize*100).toFixed(0)}%</span>
+  <input type="range" min="12" max="32" step="1" value="${fm.settings.fontSize}" id="fm-fontSize" aria-label="Curseur de taille du texte" aria-valuemin="12" aria-valuemax="32" aria-valuenow="${fm.settings.fontSize}">
+  <span class="fm-value" id="fm-fontSize-val" aria-live="polite">${fm.settings.fontSize}px</span>
 </div>
 <div class="fm-section fm-row">
   <label for="fm-brightness">Luminosité</label>
-  <input type="range" min="0.5" max="2" step="0.05" value="${fm.settings.brightness}" id="fm-brightness" aria-label="Curseur luminosité">
-  <span class="fm-value" id="fm-brightness-val">${(fm.settings.brightness*100).toFixed(0)}%</span>
+  <input type="range" min="0.5" max="2" step="0.05" value="${fm.settings.brightness}" id="fm-brightness" aria-label="Curseur de luminosité" aria-valuemin="0.5" aria-valuemax="2" aria-valuenow="${fm.settings.brightness}">
+  <span class="fm-value" id="fm-brightness-val" aria-live="polite">${(fm.settings.brightness*100).toFixed(0)}%</span>
 </div>
 <div class="fm-section fm-row">
   <label for="fm-lineHeight">Interligne</label>
-  <input type="range" min="1" max="2.5" step="0.05" value="${fm.settings.lineHeight}" id="fm-lineHeight" aria-label="Curseur interligne">
+  <input type="range" min="1" max="2.5" step="0.1" value="${fm.settings.lineHeight}" id="fm-lineHeight" aria-label="Curseur d'interligne" aria-valuemin="1" aria-valuemax="2.5" aria-valuenow="${fm.settings.lineHeight}">
+  <span class="fm-value" id="fm-lineHeight-val" aria-live="polite">${fm.settings.lineHeight.toFixed(1)}</span>
 </div>
 <div class="fm-section fm-row">
   <label for="fm-letterSpacing">Espacement lettres</label>
-  <input type="range" min="0" max="0.2" step="0.01" value="${fm.settings.letterSpacing}" id="fm-letterSpacing" aria-label="Curseur espacement lettres">
+  <input type="range" min="0" max="5" step="0.5" value="${fm.settings.letterSpacing}" id="fm-letterSpacing" aria-label="Curseur d'espacement des lettres" aria-valuemin="0" aria-valuemax="5" aria-valuenow="${fm.settings.letterSpacing}">
+  <span class="fm-value" id="fm-letterSpacing-val" aria-live="polite">${fm.settings.letterSpacing}px</span>
 </div>
 <div class="fm-section fm-row">
   <label for="fm-wordSpacing">Espacement mots</label>
-  <input type="range" min="0" max="0.4" step="0.02" value="${fm.settings.wordSpacing}" id="fm-wordSpacing" aria-label="Curseur espacement mots">
+  <input type="range" min="0" max="20" step="1" value="${fm.settings.wordSpacing}" id="fm-wordSpacing" aria-label="Curseur d'espacement des mots" aria-valuemin="0" aria-valuemax="20" aria-valuenow="${fm.settings.wordSpacing}">
+  <span class="fm-value" id="fm-wordSpacing-val" aria-live="polite">${fm.settings.wordSpacing}px</span>
 </div>
 <div class="fm-section fm-row">
-  <label for="fm-falc">Mode FALC</label>
-  <select id="fm-falc" class="fm-control" aria-label="Sélection niveau FALC">
-    <option value="0">Off</option>
-    <option value="1">1 — léger</option>
-    <option value="2">2 — moyen</option>
-    <option value="3">3 — maximal</option>
-  </select>
+  <button class="fm-btn" id="fm-read" aria-label="Lire le texte sélectionné à haute voix">Lire le texte</button>
 </div>
 <div class="fm-section fm-row">
-  <button class="fm-btn" id="fm-read" aria-label="Lire texte sélectionné">Lire le texte</button>
-</div>
-<div class="fm-section fm-row">
-  <button class="fm-btn" id="fm-export" aria-label="Exporter vos préférences">Exporter JSON</button>
-  <input type="file" id="fm-import" aria-label="Importer vos préférences" accept=".json">
+  <button class="fm-btn" id="fm-export" aria-label="Exporter vos préférences au format JSON">Exporter JSON</button>
+  <label for="fm-import" class="fm-btn" style="display:inline-block; text-align:center; cursor:pointer; margin:0;">
+    Importer
+    <input type="file" id="fm-import" aria-label="Importer vos préférences" accept=".json" style="display:none;">
+  </label>
 </div>
 </div>
 `;
+
 const div=document.createElement("div");
 div.innerHTML=fmToolbarHTML;
 document.body.appendChild(div.firstElementChild);
@@ -1127,37 +1177,53 @@ const toolbar = document.querySelector(".fm-toolbar");
 const closeBtn = toolbar.querySelector(".fm-close");
 
 toggleBtn.addEventListener('click', function() {
-  if (toolbar.classList.contains('visible')) {
+  const isVisible = toolbar.classList.contains('visible');
+  
+  if (isVisible) {
     toolbar.classList.remove('visible');
-    toggleBtn.classList.remove('hidden');
+    toggleBtn.setAttribute('aria-expanded', 'false');
     toggleBtn.setAttribute('aria-label', 'Ouvrir les paramètres d\'accessibilité');
+    announce('Barre d\'accessibilité fermée');
   } else {
     toolbar.classList.add('visible');
+    toggleBtn.setAttribute('aria-expanded', 'true');
     toggleBtn.setAttribute('aria-label', 'Fermer les paramètres d\'accessibilité');
+    announce('Barre d\'accessibilité ouverte');
   }
 });
 
 closeBtn.addEventListener("click", function() {
   toolbar.classList.remove('visible');
-  toggleBtn.classList.remove('hidden');
+  toggleBtn.setAttribute('aria-expanded', 'false');
   toggleBtn.setAttribute('aria-label', 'Ouvrir les paramètres d\'accessibilité');
+  announce('Barre d\'accessibilité fermée');
 });
 
 /* Toolbar Event Listeners */
+document.getElementById("fm-theme").value = fm.settings.theme;
 document.getElementById("fm-theme").addEventListener("change",e=>{
-  fm.settings.theme=e.target.value; fm.apply(); fm.save();
+  fm.settings.theme=e.target.value; 
+  fm.apply(); 
+  fm.save();
+  announce('Thème changé en ' + e.target.selectedOptions[0].text);
 });
 
+document.getElementById("fm-font").value = fm.settings.font;
 document.getElementById("fm-font").addEventListener("change",e=>{
-  fm.settings.font=e.target.value; fm.apply(); fm.save();
+  fm.settings.font=e.target.value; 
+  fm.apply(); 
+  fm.save();
+  announce('Police changée en ' + e.target.value);
 });
 
 const fontSlider=document.getElementById("fm-fontSize");
 const fontVal=document.getElementById("fm-fontSize-val");
 fontSlider.addEventListener("input",e=>{
-  fm.settings.fontSize=parseFloat(e.target.value);
-  fontVal.textContent=(fm.settings.fontSize*100).toFixed(0)+"%";
-  fm.apply(); fm.save();
+  fm.settings.fontSize=parseInt(e.target.value);
+  fontVal.textContent=fm.settings.fontSize+"px";
+  e.target.setAttribute('aria-valuenow', fm.settings.fontSize);
+  fm.apply(); 
+  fm.save();
 });
 
 const brightSlider=document.getElementById("fm-brightness");
@@ -1165,38 +1231,60 @@ const brightVal=document.getElementById("fm-brightness-val");
 brightSlider.addEventListener("input",e=>{
   fm.settings.brightness=parseFloat(e.target.value);
   brightVal.textContent=(fm.settings.brightness*100).toFixed(0)+"%";
-  fm.apply(); fm.save();
+  e.target.setAttribute('aria-valuenow', fm.settings.brightness);
+  fm.apply(); 
+  fm.save();
 });
 
-document.getElementById("fm-lineHeight").addEventListener("input",e=>{
-  fm.settings.lineHeight=parseFloat(e.target.value); fm.apply(); fm.save();
+const lineHeightSlider=document.getElementById("fm-lineHeight");
+const lineHeightVal=document.getElementById("fm-lineHeight-val");
+lineHeightSlider.addEventListener("input",e=>{
+  fm.settings.lineHeight=parseFloat(e.target.value); 
+  lineHeightVal.textContent=fm.settings.lineHeight.toFixed(1);
+  e.target.setAttribute('aria-valuenow', fm.settings.lineHeight);
+  fm.apply(); 
+  fm.save();
 });
 
-document.getElementById("fm-letterSpacing").addEventListener("input",e=>{
-  fm.settings.letterSpacing=parseFloat(e.target.value); fm.apply(); fm.save();
+const letterSpacingSlider=document.getElementById("fm-letterSpacing");
+const letterSpacingVal=document.getElementById("fm-letterSpacing-val");
+letterSpacingSlider.addEventListener("input",e=>{
+  fm.settings.letterSpacing=parseFloat(e.target.value); 
+  letterSpacingVal.textContent=fm.settings.letterSpacing+"px";
+  e.target.setAttribute('aria-valuenow', fm.settings.letterSpacing);
+  fm.apply(); 
+  fm.save();
 });
 
-document.getElementById("fm-wordSpacing").addEventListener("input",e=>{
-  fm.settings.wordSpacing=parseFloat(e.target.value); fm.apply(); fm.save();
-});
-
-document.getElementById("fm-falc").addEventListener("change",e=>{
-  fm.settings.falc=parseInt(e.target.value); fm.apply(); fm.save();
+const wordSpacingSlider=document.getElementById("fm-wordSpacing");
+const wordSpacingVal=document.getElementById("fm-wordSpacing-val");
+wordSpacingSlider.addEventListener("input",e=>{
+  fm.settings.wordSpacing=parseFloat(e.target.value); 
+  wordSpacingVal.textContent=fm.settings.wordSpacing+"px";
+  e.target.setAttribute('aria-valuenow', fm.settings.wordSpacing);
+  fm.apply(); 
+  fm.save();
 });
 
 document.getElementById("fm-read").addEventListener("click",()=>{
   const selection=window.getSelection().toString().trim();
-  if(selection) fm.speak(selection);
-  else alert("Sélectionnez un texte à lire.");
+  if(selection) {
+    fm.speak(selection);
+    announce('Lecture du texte sélectionné');
+  } else {
+    announce('Aucun texte sélectionné');
+    alert("Sélectionnez un texte à lire.");
+  }
 });
 
 document.getElementById("fm-export").addEventListener("click",()=>fm.exportJSON());
 
 document.getElementById("fm-import").addEventListener("change",e=>{
-  const file=e.target.files[0]; if(file) fm.importJSON(file);
+  const file=e.target.files[0]; 
+  if(file) fm.importJSON(file);
 });
 
 /* End of Faites Mieux - accessible-core.js */
     </script>
 </body>
-</html> 
+</html>
