@@ -42,13 +42,6 @@
   border-width: 0;
 }
 
-/* Champs requis */
-.required::after {
-  content: " *";
-  color: #dc2626;
-  font-weight: bold;
-}
-
 /* Styles originaux */
 html, body {
     height: 100%;
@@ -70,6 +63,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100%;
+    padding-top: 20px;
 }
 
 .glass-effect {
@@ -110,6 +104,39 @@ body {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.7; }
 }
+
+.reset-btn {
+    background: #dc2626;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+    background: #b91c1c;
+    transform: translateY(-2px);
+}
+
+.reset-btn:focus {
+    outline: 3px solid #ffb703;
+    outline-offset: 2px;
+}
+
+/* Adaptation mobile */
+@media (max-width: 768px) {
+    body {
+        padding-top: 10px;
+    }
+    
+    .container {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+}
     </style>
 </head>
 <body class="min-h-full">
@@ -131,12 +158,24 @@ body {
             </div>
         </header>
 
+        <!-- Bouton Réinitialiser -->
+        <div class="text-center mb-6">
+            <button 
+                type="button" 
+                id="resetButton" 
+                class="reset-btn"
+                aria-label="Réinitialiser le formulaire"
+            >
+                Réinitialiser le formulaire
+            </button>
+        </div>
+
         <!-- Main Form -->
         <main id="main-content" role="main" class="max-w-4xl mx-auto">
             <form id="descriptionForm" class="space-y-6" novalidate>
                 <!-- Type de contenu -->
                 <fieldset class="glass-effect rounded-lg p-6">
-                    <legend class="text-xl font-semibold mb-4 text-gray-800 required">Type de contenu</legend>
+                    <legend class="text-xl font-semibold mb-4 text-gray-800">Type de contenu <span style="color:#dc2626;">*</span></legend>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4" role="radiogroup" aria-required="true">
                         <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
                             <input type="radio" name="contentType" value="image" class="text-blue-500 focus:ring-blue-500" required aria-required="true">
@@ -356,7 +395,7 @@ body {
                 <div id="pressSection" class="hidden" role="region" aria-label="Section communiqué de presse">
                     <!-- Situation du communiqué -->
                     <fieldset class="glass-effect rounded-lg p-6">
-                        <legend class="text-xl font-semibold mb-4 text-gray-800 required">Situation du communiqué</legend>
+                        <legend class="text-xl font-semibold mb-4 text-gray-800">Situation du communiqué <span style="color:#dc2626;">*</span></legend>
                         <div class="space-y-4" role="radiogroup" aria-required="true">
                             <label class="flex items-center space-x-3 text-gray-800 cursor-pointer p-3 border border-gray-300 rounded-lg hover:bg-gray-50">
                                 <input type="radio" name="pressSituation" value="new" class="text-blue-500 focus:ring-blue-500" required aria-required="true">
@@ -429,7 +468,7 @@ body {
                                 <p class="text-sm text-gray-700 mb-3">
                                     <strong>Qu'est-ce que textup.fr ?</strong> C'est un hébergeur de texte gratuit qui permet de s'affranchir des limites de caractères des réseaux sociaux.
                                 </p>
-                                <div class="flex gap-3">
+                                <div class="flex gap-3 flex-wrap">
                                     <button 
                                         type="button" 
                                         id="copyTextButton" 
@@ -507,117 +546,156 @@ body {
             </form>
 
             <!-- Résultat -->
-            <div id="result" class="hidden mt-8 fade-in" role="region" aria-label="Résultat de la description générée
-                ">
-<div class="result-box rounded-lg p-6 text-gray-800">
-<div class="flex justify-between items-center mb-4">
-<h3 class="text-xl font-semibold text-gray-800">Votre description accessible :</h3>
-<button 
-                         id="copyButton" 
-                         class="copy-button bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium"
-                         aria-label="Copier la description dans le presse-papier"
-                     >
-Copier
-</button>
-</div>
-<div id="generatedDescription" class="bg-gray-50 p-4 rounded border text-gray-700 leading-relaxed" aria-live="polite"></div>
-</div>
-</div>
-</main>
-  <!-- Footer -->
-    <footer role="contentinfo" class="text-center mt-12">
-        <div class="bg-white p-3 rounded-lg mx-auto max-w-sm shadow-lg">
-            <p class="text-sm text-gray-700 font-medium">TiRacoon - Pour un monde virtuel plus accessible</p>
-        </div>
-    </footer>
-</div>
+            <div id="result" class="hidden mt-8 fade-in" role="region" aria-label="Résultat de la description générée">
+                <div class="result-box rounded-lg p-6 text-gray-800">
+                    <div class="flex justify-between items-center mb-4 flex-wrap gap-3">
+                        <h3 class="text-xl font-semibold text-gray-800">Votre description accessible :</h3>
+                        <div class="flex gap-3 flex-wrap">
+                            <button 
+                                id="copyButton" 
+                                class="copy-button bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium"
+                                aria-label="Copier la description dans le presse-papier"
+                            >
+                                Copier
+                            </button>
+                            <button 
+                                id="newDescriptionButton" 
+                                class="reset-btn"
+                                aria-label="Créer une nouvelle description"
+                            >
+                                Nouvelle description
+                            </button>
+                        </div>
+                    </div>
+                    <div id="generatedDescription" class="bg-gray-50 p-4 rounded border text-gray-700 leading-relaxed" aria-live="polite"></div>
+                </div>
+            </div>
+        </main>
 
-<!-- Script du générateur -->
-<script>
-    function announce(message) {
-        const announcer = document.getElementById('announcements');
-        announcer.textContent = message;
-        setTimeout(() => announcer.textContent = '', 1000);
-    }
+        <!-- Footer -->
+        <footer role="contentinfo" class="text-center mt-12">
+            <div class="bg-white p-3 rounded-lg mx-auto max-w-sm shadow-lg">
+                <p class="text-sm text-gray-700 font-medium">TiRacoon - Pour un monde virtuel plus accessible</p>
+            </div>
+        </footer>
+    </div>
 
-    document.querySelectorAll('input[name="contentType"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            const imageSection = document.getElementById('imageSection');
-            const pressSection = document.getElementById('pressSection');
-            
-            if (this.value === 'image') {
-                imageSection.classList.remove('hidden');
-                pressSection.classList.add('hidden');
-                announce('Section Image/Visuel affichée');
-            } else if (this.value === 'press') {
-                pressSection.classList.remove('hidden');
-                imageSection.classList.add('hidden');
-                announce('Section Communiqué de presse affichée');
+    <!-- Script du générateur -->
+    <script>
+        function announce(message) {
+            const announcer = document.getElementById('announcements');
+            announcer.textContent = message;
+            setTimeout(() => announcer.textContent = '', 1000);
+        }
+
+        // Bouton Réinitialiser
+        document.getElementById('resetButton').addEventListener('click', function() {
+            if(confirm('Voulez-vous vraiment réinitialiser le formulaire ? Toutes les données seront effacées.')) {
+                document.getElementById('descriptionForm').reset();
+                document.getElementById('imageSection').classList.add('hidden');
+                document.getElementById('pressSection').classList.add('hidden');
+                document.getElementById('result').classList.add('hidden');
+                document.getElementById('mainLogoSection').classList.add('hidden');
+                document.getElementById('socialLogosSection').classList.add('hidden');
+                document.getElementById('newPressSection').classList.add('hidden');
+                document.getElementById('existingPressSection').classList.add('hidden');
+                announce('Formulaire réinitialisé');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
-    });
 
-    document.getElementById('hasMainLogo').addEventListener('change', function() {
-        const section = document.getElementById('mainLogoSection');
-        if (this.checked) {
-            section.classList.remove('hidden');
-            announce('Section logo principal affichée');
-        } else {
-            section.classList.add('hidden');
-        }
-    });
-
-    document.getElementById('hasSocialLogos').addEventListener('change', function() {
-        const section = document.getElementById('socialLogosSection');
-        if (this.checked) {
-            section.classList.remove('hidden');
-            announce('Section logos réseaux sociaux affichée');
-        } else {
-            section.classList.add('hidden');
-        }
-    });
-
-    document.querySelectorAll('input[name="pressSituation"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            const newSection = document.getElementById('newPressSection');
-            const existingSection = document.getElementById('existingPressSection');
-            
-            if (this.value === 'new') {
-                newSection.classList.remove('hidden');
-                existingSection.classList.add('hidden');
-                announce('Section nouveau communiqué affichée');
-            } else if (this.value === 'existing') {
-                existingSection.classList.remove('hidden');
-                newSection.classList.add('hidden');
-                announce('Section communiqué existant affichée');
-            }
+        // Bouton Nouvelle description
+        document.getElementById('newDescriptionButton').addEventListener('click', function() {
+            document.getElementById('descriptionForm').reset();
+            document.getElementById('imageSection').classList.add('hidden');
+            document.getElementById('pressSection').classList.add('hidden');
+            document.getElementById('result').classList.add('hidden');
+            document.getElementById('mainLogoSection').classList.add('hidden');
+            document.getElementById('socialLogosSection').classList.add('hidden');
+            document.getElementById('newPressSection').classList.add('hidden');
+            document.getElementById('existingPressSection').classList.add('hidden');
+            announce('Nouveau formulaire prêt');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    });
 
-    document.getElementById('copyTextButton').addEventListener('click', function() {
-        const pressContent = document.getElementById('pressContent').value;
-        if (pressContent.trim()) {
-            navigator.clipboard.writeText(pressContent).then(function() {
-                const button = document.getElementById('copyTextButton');
-                const originalText = button.textContent;
-                button.textContent = 'Texte copié !';
-                button.classList.add('pulse-animation');
-                announce('Texte du communiqué copié');
+        document.querySelectorAll('input[name="contentType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const imageSection = document.getElementById('imageSection');
+                const pressSection = document.getElementById('pressSection');
                 
-                setTimeout(function() {
-                    button.textContent = originalText;
-                    button.classList.remove('pulse-animation');
-                }, 2000);
-            }).catch(function(err) {
-                announce('Erreur lors de la copie');
-                alert('Erreur lors de la copie. Veuillez réessayer.');
+                if (this.value === 'image') {
+                    imageSection.classList.remove('hidden');
+                    pressSection.classList.add('hidden');
+                    announce('Section Image/Visuel affichée');
+                } else if (this.value === 'press') {
+                    pressSection.classList.remove('hidden');
+                    imageSection.classList.add('hidden');
+                    announce('Section Communiqué de presse affichée');
+                }
             });
-        } else {
-            announce('Aucun texte à copier');
-            alert('Veuillez d\'abord saisir le texte du communiqué.');
-        }
-    });
-     document.getElementById('descriptionForm').addEventListener('submit', function(e) {
+        });
+
+        document.getElementById('hasMainLogo').addEventListener('change', function() {
+            const section = document.getElementById('mainLogoSection');
+            if (this.checked) {
+                section.classList.remove('hidden');
+                announce('Section logo principal affichée');
+            } else {
+                section.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('hasSocialLogos').addEventListener('change', function() {
+            const section = document.getElementById('socialLogosSection');
+            if (this.checked) {
+                section.classList.remove('hidden');
+                announce('Section logos réseaux sociaux affichée');
+            } else {
+                section.classList.add('hidden');
+            }
+        });
+
+        document.querySelectorAll('input[name="pressSituation"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const newSection = document.getElementById('newPressSection');
+                const existingSection = document.getElementById('existingPressSection');
+                
+                if (this.value === 'new') {
+                    newSection.classList.remove('hidden');
+                    existingSection.classList.add('hidden');
+                    announce('Section nouveau communiqué affichée');
+                } else if (this.value === 'existing') {
+                    existingSection.classList.remove('hidden');
+                    newSection.classList.add('hidden');
+                    announce('Section communiqué existant affichée');
+                }
+            });
+        });
+
+        document.getElementById('copyTextButton').addEventListener('click', function() {
+            const pressContent = document.getElementById('pressContent').value;
+            if (pressContent.trim()) {
+                navigator.clipboard.writeText(pressContent).then(function() {
+                    const button = document.getElementById('copyTextButton');
+                    const originalText = button.textContent;
+                    button.textContent = 'Texte copié !';
+                    button.classList.add('pulse-animation');
+                    announce('Texte du communiqué copié');
+                    
+                    setTimeout(function() {
+                        button.textContent = originalText;
+                        button.classList.remove('pulse-animation');
+                    }, 2000);
+                }).catch(function(err) {
+                    announce('Erreur lors de la copie');
+                    alert('Erreur lors de la copie. Veuillez réessayer.');
+                });
+            } else {
+                announce('Aucun texte à copier');
+                alert('Veuillez d\'abord saisir le texte du communiqué.');
+            }
+        });
+        document.getElementById('descriptionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const contentType = document.querySelector('input[name="contentType"]:checked')?.value;
