@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mode d'Emploi - Texte Alternatif sur les Réseaux Sociaux</title>
+    
+    <!-- Toolbar d'accessibilité Faites Mieux -->
+    <link rel="stylesheet" href="https://alixb-accessible.github.io/faites-mieux-toolbar/faites-mieux.css">
+    <script src="https://alixb-accessible.github.io/faites-mieux-toolbar/faites-mieux.js" defer></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg,
+                #4a4a4a 0%, #4a4a4a 14.28%,      /* Gris foncé */
+                #22c55e 14.28%, #22c55e 28.56%,  /* Vert */
+                #3b82f6 28.56%, #3b82f6 42.84%,  /* Bleu */
+                #ffffff 42.84%, #ffffff 57.12%,  /* Blanc */
+                #fbbf24 57.12%, #fbbf24 71.4%,   /* Jaune */
+                #dc2626 71.4%, #dc2626 85.68%,   /* Rouge */
+                #4a4a4a 85.68%, #4a4a4a 100%     /* Gris foncé */
+            );
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        h1 {
+            color: #1f2937;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+        
+        .intro {
+            background: #eff6ff;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #3b82f6;
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            color: #1f2937;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        h3 {
+            color: #374151;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .platform {
+            background: #f9fafb;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #22c55e;
+        }
+        
+        .platform h2 {
+            margin-top: 0;
+            color: #22c55e;
+            border: none;
+        }
+        
+        .steps {
+            margin: 20px 0;
+        }
+        
+        .steps ol {
+            margin-left: 25px;
+        }
+        
+        .steps li {
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+        
+        .tip {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #fbbf24;
+        }
+        
+        .tip strong {
+            color: #92400e;
+        }
+        
+        .warning {
+            background: #fee2e2;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #dc2626;
+        }
+        
+        .warning strong {
+            color: #991b1b;
+        }
+        
+        .note {
+            background: #dbeafe;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .important {
+            background: #fecaca;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: bold;
+            border-left: 4px solid #dc2626;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+        }
+        
+        .example {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #22c55e;
+        }
+        
+        .stats {
+            background: #f3f4f6;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+        
+        .stats ul {
+            list-style: none;
+        }
+        
+        .stats li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .stats li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .link-button {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 10px 5px;
+            transition: background 0.3s;
+        }
+        
+        .link-button:hover,
+        .link-button:focus {
+            background: #2563eb;
+            outline: 3px solid #93c5fd;
+            outline-offset: 2px;
+        }
+        
+        /* Navigation au clavier */
+        *:focus {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        a:focus,
+        button:focus {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e5e7eb;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MODE D'EMPLOI</h1>
+            <p class="subtitle">Où coller vos descriptions accessibles<br>Guide complet pour trouver le champ texte alternatif sur chaque réseau social</p>
+        </header>
+        
+        <div class="intro">
+            <h2>INTRODUCTION</h2>
+            <p>Le texte alternatif (ou "alt text") permet aux personnes qui en ont besoin d'avoir accès à vos images, avec un lecteur d'écran, ou sans.</p>
+            <p>Une fois votre description générée avec l'outil TiRacoon, voici exactement où la coller sur chaque plateforme.</p>
+        </div>
+        
+        <div class="platform">
+            <h2>1. TWITTER / X</h2>
+            <div class="steps">
+                <h3>Étapes :</h3>
+                <ol>
+                    <li>Composez votre tweet et ajoutez votre image</li>
+                    <li>Cliquez sur le bouton "ALT" qui apparaît en bas à gauche de l'image</li>
+                    <li>Une fenêtre s'ouvre : collez votre description (maximum 1000 caractères)</li>
+                    <li>Cliquez sur "Enregistrer" ou "Save"</li>
+                </ol>
+            </div>
+            <div class="tip">
+                <strong>Astuce :</strong> Si vous ne voyez pas le bouton ALT, activez-le dans Paramètres → Accessibilité, affichage et langues → Accessibilité → cochez "Composer des descriptions d'images"
+            </div>
+            <a href="https://help.twitter.com/fr/using-twitter/picture-descriptions" class="link-button" target="_blank" rel="noopener">Documentation Twitter/X</a>
+        </div>
+        
+        <div class="platform">
+            <h2>2. FACEBOOK</h2>
+            <div class="steps">
+                <h3>Étapes :</h3>
+                <ol>
+                    <li>Créez votre publication et ajoutez votre image</li>
+                    <li>Cliquez sur "Modifier" (icône crayon) en haut à droite de l'image</li>
+                    <li>Sélectionnez "Texte alternatif" dans le menu</li>
+                    <li>Supprimez le texte auto-généré par Facebook</li>
+                    <li>Collez votre description</li>
+                    <li>Cliquez sur "Enregistrer"</li>
+                </ol>
+            </div>
+            <div class="important">
+                <strong>Important :</strong> Facebook génère automatiquement un texte alt avec son IA. Supprimez-le TOUJOURS et remplacez-le par votre propre description qui est beaucoup plus précise !
+            </div>
+            <a href="https://www.facebook.com/help/214124458607871" class="link-button" target="_blank" rel="noopener">Documentation Facebook</a>
+        </div>
+        
+        <div class="platform">
+            <h2>3. INSTAGRAM</h2>
+            <div class="steps">
+                <h3>Étapes :</h3>
+                <ol>
+                    <li>Préparez votre publication avec votre image</li>
+                    <li>Sur l'écran de partage, faites défiler tout en bas</li>
+                    <li>Cliquez sur "Paramètres avancés"</li>
+                    <li>Trouvez la section "Accessibilité"</li>
+                    <li>Cliquez sur "Écrire un texte alternatif"</li>
+                    <li>Supprimez le texte auto-généré</li>
+                    <li>Collez votre description</li>
+                    <li>Validez et publiez normalement</li>
+                </ol>
+            </div>
+            <div class="note">
+                <strong>Note :</strong> Instagram génère aussi un texte alternatif "automatique" mais sa qualité laisse à désirer. Remplacez-le par le vôtre pour une vraie accessibilité.
+            </div>
+            <a href="https://help.instagram.com/503708446705527" class="link-button" target="_blank" rel="noopener">Documentation Instagram</a>
+        </div>
+        
+        <div class="platform">
+            <h2>4. LINKEDIN</h2>
+            <div class="steps">
+                <h3>Étapes :</h3>
+                <ol>
+                    <li>Créez votre publication et ajoutez votre image</li>
+                    <li>Cliquez sur l'icône "Modifier" (crayon) qui apparaît sur l'image</li>
+                    <li>Sélectionnez "Ajouter un texte de remplacement" ou "Texte alt"</li>
+                    <li>Collez votre description</li>
+                    <li>Cliquez sur "Appliquer" puis publiez</li>
+                </ol>
+            </div>
+            <a href="https://www.linkedin.com/help/linkedin/answer/a519827" class="link-button" target="_blank" rel="noopener">Documentation LinkedIn</a>
+        </div>
+        
+        <div class="platform">
+            <h2>5. TIKTOK</h2>
+            <div class="steps">
+                <h3>Pour les publications de photos :</h3>
+                <ol>
+                    <li>Créez votre publication avec vos photos</li>
+                    <li>Sur l'écran de publication, cliquez sur "Plus d'options" ou "More options"</li>
+                    <li>Sélectionnez "Ajouter un texte alternatif" ou "Add alternative text"</li>
+                    <li>Collez votre description pour chaque photo</li>
+                    <li>Cliquez sur "Terminé" ou "Done"</li>
+                </ol>
+            </div>
+            <div class="warning">
+                <strong>Limitation pour les vidéos :</strong> TikTok ne propose pas de champ texte alternatif pour les vidéos ni pour les vignettes de vidéos.
+            </div>
+            <div class="steps">
+                <h3>Solutions alternatives pour les vidéos :</h3>
+                <ul>
+                    <li><strong>Pour les miniatures/vignettes :</strong> Incluez votre description au tout début de la légende de votre vidéo, en commençant par "[Description de l'image] : ..."</li>
+                    <li><strong>Pour le contenu vidéo :</strong> Activez les sous-titres automatiques ET ajoutez une description/transcription complète dans la légende</li>
+                    <li><strong>Recommandation :</strong> Décrivez toujours les éléments visuels importants à l'oral dans la vidéo elle-même</li>
+                </ul>
+            </div>
+            <a href="https://support.tiktok.com/en/using-tiktok/creating-videos/accessibility" class="link-button" target="_blank" rel="noopener">Documentation TikTok</a>
+            <a href="https://www.tiktok.com/accessibility/en" class="link-button" target="_blank" rel="noopener">Accessibilité TikTok</a>
+        </div>
+        
+        <div class="platform">
+            <h2>6. YOUTUBE</h2>
+            <div class="warning">
+                <strong>Limitation :</strong> YouTube n'a malheureusement pas de champ texte alternatif dédié pour les miniatures de vidéos.
+            </div>
+            <div class="steps">
+                <h3>Solution pour les miniatures :</h3>
+                <p>Décrivez votre miniature dans la description de la vidéo, au début, en écrivant "Miniature : [votre description]"</p>
+                
+                <h3>Pour l'accessibilité globale de vos vidéos :</h3>
+                <ul>
+                    <li>Activez les sous-titres automatiques (YouTube Studio → Sous-titres)</li>
+                    <li>Ajoutez une transcription complète dans la description</li>
+                    <li>Décrivez oralement les éléments visuels importants dans votre vidéo</li>
+                </ul>
+            </div>
+            <a href="https://support.google.com/youtube/answer/2734796" class="link-button" target="_blank" rel="noopener">Documentation YouTube (Sous-titres)</a>
+        </div>
+        
+        <div class="platform">
+            <h2>7. BLUESKY</h2>
+            <div class="steps">
+                <h3>Étapes :</h3>
+                <ol>
+                    <li>Composez votre post et ajoutez votre image</li>
+                    <li>Cliquez sur le bouton "ALT" en bas à gauche de l'image</li>
+                    <li>Collez votre description</li>
+                    <li>Validez et publiez</li>
+                </ol>
+            </div>
+            <div class="note">
+                <strong>Note :</strong> Une option peut vous obliger à rédiger un texte alternatif pour une image avant de poster, une autre offre un affichage plus visible des badges des textes alternatifs.
+            </div>
+            <a href="https://bsky.social" class="link-button" target="_blank" rel="noopener">Aller sur Bluesky</a>
+        </div>
+        
+        <div class="platform">
+            <h2>8. MASTODON</h2>
+            <div class="steps">
+                <h3>Étapes :</h3>
+                <ol>
+                    <li>Composez votre post et ajoutez votre image</li>
+                    <li>Un champ "Décrire l'image" ou "Description" apparaît automatiquement sous l'image</li>
+                    <li>Collez votre description</li>
+                    <li>Publiez</li>
+                </ol>
+            </div>
+            <div class="tip">
+                <strong>Note :</strong> Mastodon prend l'accessibilité très au sérieux et vous avertit même si vous oubliez de remplir le texte alt !
+            </div>
+            <a href="https://joinmastodon.org/" class="link-button" target="_blank" rel="noopener">En savoir plus sur Mastodon</a>
+        </div>
+        
+        <div class="platform">
+            <h2>9. SUR VOTRE SITE WEB</h2>
+            <h3>Dans le code HTML :</h3>
+            <div class="code-block">
+&lt;img src="mon-image.jpg" alt="Votre description ici"&gt;
+            </div>
+            
+            <h3>Sur WordPress / Wix / Squarespace / Webflow :</h3>
+            <div class="steps">
+                <ol>
+                    <li>Cliquez sur votre image dans l'éditeur</li>
+                    <li>Cherchez le champ "Texte alternatif", "Alt text" ou "Description alternative" dans les paramètres/propriétés de l'image</li>
+                    <li>Collez votre description</li>
+                    <li>Enregistrez</li>
+                </ol>
+            </div>
+            <a href="https://www.w3.org/WAI/tutorials/images/" class="link-button" target="_blank" rel="noopener">Guide W3C sur les images accessibles</a>
+        </div>
+        
+        <h2>CAS SPÉCIAUX</h2>
+        
+        <div class="platform">
+            <h3>CAS SPÉCIAL 1 : LES CAPTURES D'ÉCRAN</h3>
+            <div class="warning">
+                <strong>Règle d'or :</strong> Pour une capture d'écran, vous DEVEZ recopier TOUT le texte visible dans votre description !
+            </div>
+            
+            <div class="steps">
+                <p>Utilisez le générateur en mode "Image" et :</p>
+                <ul>
+                    <li>Dans "Type d'image" : sélectionnez "Capture d'écran"</li>
+                    <li>Dans "Description générale" : précisez de quelle plateforme/application il s'agit (Twitter aka X, article de presse, etc.)</li>
+                    <li>Dans "Message" : RECOPIEZ TOUT LE TEXTE visible sur la capture</li>
+                    <li>Mentionnez les informations de contexte (nom de l'auteur, date, nombre de likes si pertinent)</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <strong>Exemple de description générée :</strong><br>
+                "Capture d'écran d'un tweet de @TiRacoon publié le 3 décembre 2024. Message : "Rendez vos images accessibles ! Chaque description compte pour l'inclusion." Une image accompagne le post (description de l'image) 156 likes, 42 retweets."
+            </div>
+            
+            <div class="tip">
+                <strong>Astuce :</strong> Si la capture contient énormément de texte (plus de 500 caractères), envisagez d'utiliser textup.fr (voir ci-dessous) ou de faire plusieurs publications avec des captures séparées.
+            </div>
+        </div>
+        
+        <div class="platform">
+            <h3>CAS SPÉCIAL 2 : LES COMMUNIQUÉS DE PRESSE</h3>
+            <p>Les communiqués de presse contiennent souvent beaucoup de texte. Pour contourner les limites de caractères des réseaux sociaux, lorsque vous les publiez sous forme d'images, utilisez <strong>textup.fr</strong> !</p>
+            
+            <div class="steps">
+                <h3>Méthode en 5 étapes :</h3>
+                <ol>
+                    <li><strong>Dans le générateur,</strong> sélectionnez "Communiqué de presse"</li>
+                    <li><strong>Remplissez les informations :</strong>
+                        <ul>
+                            <li>Choisissez si c'est un nouveau communiqué ou si vous avez déjà un lien</li>
+                            <li>Titre du communiqué</li>
+                            <li>Description de l'image (en-tête, logos, mise en page du document)</li>
+                            <li>Collez le texte COMPLET du communiqué dans le champ prévu</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cliquez sur "Copier le texte"</strong> puis "Ouvrir textup.fr"</li>
+                    <li><strong>Sur textup.fr :</strong>
+                        <ul>
+                            <li>Collez votre texte complet</li>
+                            <li>Cliquez sur "Héberger mon texte"</li>
+                            <li>Copiez le lien généré (exemple : https://textup.fr/abc123)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Retournez dans le générateur :</strong>
+                        <ul>
+                            <li>Collez le lien textup.fr dans le champ prévu</li>
+                            <li>Cliquez sur "Générer la description"</li>
+                            <li>Copiez et utilisez cette description comme texte alt de votre image de communiqué</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="example">
+                <strong>Résultat final :</strong><br>
+                "Document officiel avec en-tête du Ministère intitulé 'Nouvelle loi sur l'accessibilité'. Version accessible disponible sur : https://textup.fr/abc123"
+            </div>
+            
+            <div class="tip">
+                <h3>Avantages de textup.fr :</h3>
+                <ul>
+                    <li>Gratuit et sans inscription</li>
+                    <li>Pas de limite de caractères</li>
+                    <li>Accessible aux lecteurs d'écran</li>
+                    <li>Vous pouvez aussi héberger le texte sur votre propre site web si vous préférez</li>
+                </ul>
+            </div>
+            <a href="https://textup.fr" class="link-button" target="_blank" rel="noopener">Accéder à textup.fr</a>
+        </div>
+        
+        <div class="stats">
+            <h2>POURQUOI C'EST IMPORTANT</h2>
+            
+            <h3>Qui bénéficie du texte alt ?</h3>
+            <ul>
+                <li>Les personnes qui utilisent des lecteurs d'écran</li>
+                <li>Les personnes qui ont besoin de ces descriptions pour différentes raisons</li>
+                <li>Tout le monde quand les images ne se chargent pas (mauvaise connexion)</li>
+                <li>Les moteurs de recherche qui indexent mieux votre contenu</li>
+            </ul>
+            
+            <h3>Chiffres à retenir :</h3>
+            <ul>
+                <li>Plus de 70% des images sur les réseaux sociaux n'ont pas de texte alternatif</li>
+                <li>Un texte alt bien rédigé prend moins de 2 minutes mais fait toute la différence pour des millions de personnes</li>
+            </ul>
+            
+            <p style="margin-top: 30px; font-size: 1.2em; text-align: center; font-weight: bold; color: #1f2937;">
+                En résumé : Rendre vos contenus accessibles, c'est inclure tout le monde dans la conversation numérique. Chaque description compte !
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>Mode d'emploi de l'<a href="https://alixb-accessible.github.io/Outil-de-descriptions-d-images-accessibles-/" target="_blank" rel="noopener">Outil de Description d'Images</a></p>
+            <p>Créé par TiRacoon</p>
+        </div>
+    </div>
+</body>
+</html>
