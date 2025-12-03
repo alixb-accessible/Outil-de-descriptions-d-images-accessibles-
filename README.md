@@ -12,4 +12,6 @@ Cet outil contient également une barre d'accessibilité, testez-la, elle est fa
 
 La navigation est également possible au clavier. 
 
+Bonne nouvelle ! Il y a même un mode d'emploi qui vous explique où trouver les descriptions d'images sur les principaux réseaux sociaux.
+
 
