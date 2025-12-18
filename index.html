@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TiRacoon - Générateur de descriptions d'images accessibles</title>
+    <title> Générateur de descriptions d'images accessibles</title>
     
-    <!-- LIGNES MAGIQUES : Toolbar Faites Mieux -->
+    <!-- Toolbar Faites Mieux -->
     <link rel="stylesheet" href="https://alixb-accessible.github.io/faites-mieux-toolbar/faites-mieux.css">
     <script src="https://alixb-accessible.github.io/faites-mieux-toolbar/faites-mieux.js" defer></script>
     
@@ -42,7 +42,6 @@
   border-width: 0;
 }
 
-/* Styles originaux */
 html, body {
     height: 100%;
     margin: 0;
@@ -126,7 +125,32 @@ body {
     outline-offset: 2px;
 }
 
-/* Adaptation mobile */
+.option-card {
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.option-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.option-card.selected {
+    border-color: #22c55e;
+    background-color: #f0fdf4;
+}
+
+.recommended-badge {
+    background: #22c55e;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
 @media (max-width: 768px) {
     body {
         padding-top: 10px;
@@ -154,7 +178,7 @@ body {
                     Outil de Description d'Images
                 </h1>
                 <p class="text-xl text-black mb-2">Créez des descriptions accessibles pour vos visuels</p>
-                <p class="text-sm text-black">Créé par TiRacoon</p>
+                <p class="text-sm text-black">Par Ti Racoon</p>
             </div>
         </header>
 
@@ -196,7 +220,6 @@ body {
 
                 <!-- Section Image/Visuel -->
                 <div id="imageSection" class="hidden" role="region" aria-label="Section description d'image">
-                    <!-- Description de l'image -->
                     <fieldset class="glass-effect rounded-lg p-6">
                         <legend class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</legend>
                         <div class="space-y-4">
@@ -210,7 +233,7 @@ body {
                                     >
                                         <option value="">Sélectionner...</option>
                                         <option value="photo">Photo</option>
-                                           <option value="Visuel">Visuel</option>
+                                        <option value="Visuel">Visuel</option>
                                         <option value="illustration">Illustration</option>
                                         <option value="graphique">Graphique</option>
                                         <option value="infographie">Infographie</option>
@@ -307,11 +330,9 @@ body {
                         </div>
                     </fieldset>
 
-                    <!-- Logo et emplacement -->
                     <fieldset class="glass-effect rounded-lg p-6">
                         <legend class="text-xl font-semibold mb-4 text-gray-800">Logos et emplacement</legend>
                         <div class="space-y-4">
-                            <!-- Logo principal -->
                             <div>
                                 <label class="flex items-center space-x-2 text-gray-800 cursor-pointer mb-3">
                                     <input type="checkbox" id="hasMainLogo" class="rounded text-blue-500 focus:ring-blue-500" aria-describedby="mainLogoDesc">
@@ -341,7 +362,6 @@ body {
                                 </div>
                             </div>
 
-                            <!-- Logos réseaux sociaux -->
                             <div>
                                 <label class="flex items-center space-x-2 text-gray-800 cursor-pointer mb-3">
                                     <input type="checkbox" id="hasSocialLogos" class="rounded text-blue-500 focus:ring-blue-500" aria-describedby="socialLogosDesc">
@@ -396,9 +416,9 @@ body {
                         </div>
                     </fieldset>
                 </div>
+
                 <!-- Section Communiqué de presse -->
                 <div id="pressSection" class="hidden" role="region" aria-label="Section communiqué de presse">
-                    <!-- Situation du communiqué -->
                     <fieldset class="glass-effect rounded-lg p-6">
                         <legend class="text-xl font-semibold mb-4 text-gray-800">Situation du communiqué <span style="color:#dc2626;">*</span></legend>
                         <div class="space-y-4" role="radiogroup" aria-required="true">
@@ -413,13 +433,12 @@ body {
                                 <input type="radio" name="pressSituation" value="existing" class="text-blue-500 focus:ring-blue-500" required aria-required="true">
                                 <div>
                                     <div class="font-medium">Communiqué avec lien accessible existant</div>
-                                    <div class="text-sm text-gray-600">Vous avez déjà un lien textup.fr ou sur votre propre site</div>
+                                    <div class="text-sm text-gray-600">Vous avez déjà un lien GRANTEXTE, textup.fr ou sur votre propre site</div>
                                 </div>
                             </label>
                         </div>
                     </fieldset>
 
-                    <!-- Titre -->
                     <fieldset class="glass-effect rounded-lg p-6">
                         <legend class="text-xl font-semibold mb-4 text-gray-800">Titre du communiqué</legend>
                         <div class="space-y-4">
@@ -436,7 +455,6 @@ body {
                         </div>
                     </fieldset>
 
-                    <!-- Description de l'image -->
                     <fieldset class="glass-effect rounded-lg p-6">
                         <legend class="text-xl font-semibold mb-4 text-gray-800">Description de l'image</legend>
                         <div class="space-y-4">
@@ -453,12 +471,11 @@ body {
                         </div>
                     </fieldset>
 
-                    <!-- Texte du communiqué -->
                     <fieldset class="glass-effect rounded-lg p-6">
                         <legend class="text-xl font-semibold mb-4 text-gray-800">Texte du communiqué</legend>
                         <div class="space-y-4">
                             <div>
-                                <label for="pressContent" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le texte complet à envoyer sur textup.fr...</label>
+                                <label for="pressContent" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le texte complet à héberger...</label>
                                 <textarea 
                                     id="pressContent" 
                                     rows="8" 
@@ -468,11 +485,48 @@ body {
                                 ></textarea>
                             </div>
                             
-                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500" role="complementary" aria-label="Instructions pour textup.fr">
-                                <p class="text-gray-800 mb-3"><strong>Étape suivante :</strong> Copiez ce texte et envoyez-le sur textup.fr</p>
-                                <p class="text-sm text-gray-700 mb-3">
-                                    <strong>Qu'est-ce que textup.fr ?</strong> C'est un hébergeur de texte gratuit qui permet de s'affranchir des limites de caractères des réseaux sociaux.
-                                </p>
+                            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500" role="complementary">
+                                <p class="text-gray-800 mb-4"><strong>Étape suivante :</strong> Choisissez un outil pour héberger votre texte</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <label class="option-card p-4 rounded-lg" id="grantexteCard">
+                                        <input type="radio" name="textHostingTool" value="grantexte" class="mb-3">
+                                        <div class="mb-2">
+                                            <span class="recommended-badge">RECOMMANDÉ</span>
+                                        </div>
+                                        <h4 class="font-bold text-lg mb-2">GRANTEXTE</h4>
+                                        <div class="text-sm space-y-2">
+                                            <p class="text-green-700"><strong>✓ Avantages :</strong></p>
+                                            <ul class="text-gray-700 ml-4 list-disc">
+                                                <li>100% accessible (barre d'outils incluse)</li>
+                                                <li>Aucune inscription requise</li>
+                                                <li>Interface simple</li>
+                                            </ul>
+                                            <p class="text-orange-700 mt-2"><strong>⚠ Limitation :</strong></p>
+                                            <ul class="text-gray-700 ml-4 list-disc">
+                                                <li>Lien valable 1 an</li>
+                                            </ul>
+                                        </div>
+                                    </label>
+
+                                    <label class="option-card p-4 rounded-lg" id="textupCard">
+                                        <input type="radio" name="textHostingTool" value="textup" class="mb-3">
+                                        <h4 class="font-bold text-lg mb-2">textup.fr</h4>
+                                        <div class="text-sm space-y-2">
+                                            <p class="text-green-700"><strong>✓ Avantages :</strong></p>
+                                            <ul class="text-gray-700 ml-4 list-disc">
+                                                <li>Lien permanent (pas d'expiration)</li>
+                                                <li>Service gratuit établi</li>
+                                            </ul>
+                                            <p class="text-orange-700 mt-2"><strong>⚠ Limitations :</strong></p>
+                                            <ul class="text-gray-700 ml-4 list-disc">
+                                                <li>Non optimisé pour l'accessibilité</li>
+                                                <li>Peut nécessiter une inscription</li>
+                                            </ul>
+                                        </div>
+                                    </label>
+                                </div>
+
                                 <div class="flex gap-3 flex-wrap">
                                     <button 
                                         type="button" 
@@ -483,10 +537,24 @@ body {
                                         Copier le texte
                                     </button>
                                     <a 
+                                        href="https://alixb-accessible.github.io/GRANTEXTE/" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        id="grantexteLink"
+                                        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center hidden"
+                                        aria-label="Ouvrir GRANTEXTE dans un nouvel onglet"
+                                    >
+                                        Ouvrir GRANTEXTE
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </a>
+                                    <a 
                                         href="https://textup.fr" 
                                         target="_blank" 
                                         rel="noopener noreferrer"
-                                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center"
+                                        id="textupLink"
+                                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center hidden"
                                         aria-label="Ouvrir textup.fr dans un nouvel onglet"
                                     >
                                         Ouvrir textup.fr
@@ -499,38 +567,36 @@ body {
                         </div>
                     </fieldset>
 
-                    <!-- Section pour nouveau communiqué -->
                     <div id="newPressSection" class="hidden">
                         <fieldset class="glass-effect rounded-lg p-6">
-                            <legend class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr généré</legend>
+                            <legend class="text-xl font-semibold mb-4 text-gray-800">Lien généré</legend>
                             <div class="space-y-4">
                                 <div>
-                                    <label for="textupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le lien généré par textup.fr...</label>
+                                    <label for="generatedLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici le lien généré par l'outil choisi...</label>
                                     <input 
                                         type="url" 
-                                        id="textupLink" 
+                                        id="generatedLink" 
                                         class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        placeholder="Ex: https://textup.fr/123456789"
-                                        aria-label="Collez le lien généré par textup.fr"
+                                        placeholder="Ex: https://alixb-accessible.github.io/GRANTEXTE/?id=... ou https://textup.fr/123456789"
+                                        aria-label="Collez le lien généré"
                                     >
                                 </div>
                             </div>
                         </fieldset>
                     </div>
 
-                    <!-- Section pour communiqué existant -->
                     <div id="existingPressSection" class="hidden">
                         <fieldset class="glass-effect rounded-lg p-6">
-                            <legend class="text-xl font-semibold mb-4 text-gray-800">Lien textup.fr ou de votre site existant</legend>
+                            <legend class="text-xl font-semibold mb-4 text-gray-800">Lien existant</legend>
                             <div class="space-y-4">
                                 <div>
-                                    <label for="existingTextupLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici votre lien textup.fr ou de votre site existant...</label>
+                                    <label for="existingLink" class="block text-sm font-medium text-gray-800 mb-2">Collez ici votre lien GRANTEXTE, textup.fr ou de votre site existant...</label>
                                     <input 
                                         type="url" 
-                                        id="existingTextupLink" 
+                                        id="existingLink" 
                                         class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        placeholder="Ex: https://textup.fr/123456789 ou https://votresite.fr/communique"
-                                        aria-label="Collez votre lien textup.fr ou de votre site existant"
+                                        placeholder="Ex: https://alixb-accessible.github.io/GRANTEXTE/?id=... ou https://textup.fr/123456789"
+                                        aria-label="Collez votre lien existant"
                                     >
                                 </div>
                             </div>
@@ -538,7 +604,6 @@ body {
                     </div>
                 </div>
 
-                <!-- Bouton de génération -->
                 <div class="text-center">
                     <button 
                         type="submit" 
@@ -550,7 +615,6 @@ body {
                 </div>
             </form>
 
-            <!-- Résultat -->
             <div id="result" class="hidden mt-8 fade-in" role="region" aria-label="Résultat de la description générée">
                 <div class="result-box rounded-lg p-6 text-gray-800">
                     <div class="flex justify-between items-center mb-4 flex-wrap gap-3">
@@ -577,7 +641,6 @@ body {
             </div>
         </main>
 
-        <!-- Footer -->
         <footer role="contentinfo" class="text-center mt-12">
             <div class="bg-white p-3 rounded-lg mx-auto max-w-sm shadow-lg">
                 <p class="text-sm text-gray-700 font-medium">TiRacoon - Pour un monde virtuel plus accessible</p>
@@ -585,15 +648,46 @@ body {
         </footer>
     </div>
 
-    <!-- Script du générateur -->
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        
         function announce(message) {
             const announcer = document.getElementById('announcements');
             announcer.textContent = message;
             setTimeout(() => announcer.textContent = '', 1000);
         }
 
-        // Bouton Réinitialiser
+        document.querySelectorAll('input[name="textHostingTool"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('grantexteCard').classList.remove('selected');
+                document.getElementById('textupCard').classList.remove('selected');
+                
+                if (this.value === 'grantexte') {
+                    document.getElementById('grantexteCard').classList.add('selected');
+                    document.getElementById('grantexteLink').classList.remove('hidden');
+                    document.getElementById('textupLink').classList.add('hidden');
+                    announce('GRANTEXTE sélectionné');
+                } else if (this.value === 'textup') {
+                    document.getElementById('textupCard').classList.add('selected');
+                    document.getElementById('textupLink').classList.remove('hidden');
+                    document.getElementById('grantexteLink').classList.add('hidden');
+                    announce('textup.fr sélectionné');
+                }
+            });
+        });
+
+        document.getElementById('grantexteCard').addEventListener('click', function(e) {
+            if (e.target.type !== 'radio') {
+                this.querySelector('input[type="radio"]').click();
+            }
+        });
+        
+        document.getElementById('textupCard').addEventListener('click', function(e) {
+            if (e.target.type !== 'radio') {
+                this.querySelector('input[type="radio"]').click();
+            }
+        });
+
         document.getElementById('resetButton').addEventListener('click', function() {
             if(confirm('Voulez-vous vraiment réinitialiser le formulaire ? Toutes les données seront effacées.')) {
                 document.getElementById('descriptionForm').reset();
@@ -604,12 +698,15 @@ body {
                 document.getElementById('socialLogosSection').classList.add('hidden');
                 document.getElementById('newPressSection').classList.add('hidden');
                 document.getElementById('existingPressSection').classList.add('hidden');
+                document.getElementById('grantexteCard').classList.remove('selected');
+                document.getElementById('textupCard').classList.remove('selected');
+                document.getElementById('grantexteLink').classList.add('hidden');
+                document.getElementById('textupLink').classList.add('hidden');
                 announce('Formulaire réinitialisé');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
 
-        // Bouton Nouvelle description
         document.getElementById('newDescriptionButton').addEventListener('click', function() {
             document.getElementById('descriptionForm').reset();
             document.getElementById('imageSection').classList.add('hidden');
@@ -619,6 +716,10 @@ body {
             document.getElementById('socialLogosSection').classList.add('hidden');
             document.getElementById('newPressSection').classList.add('hidden');
             document.getElementById('existingPressSection').classList.add('hidden');
+            document.getElementById('grantexteCard').classList.remove('selected');
+            document.getElementById('textupCard').classList.remove('selected');
+            document.getElementById('grantexteLink').classList.add('hidden');
+            document.getElementById('textupLink').classList.add('hidden');
             announce('Nouveau formulaire prêt');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -700,6 +801,7 @@ body {
                 alert('Veuillez d\'abord saisir le texte du communiqué.');
             }
         });
+        
         document.getElementById('descriptionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -734,6 +836,7 @@ body {
                 if (imageTypeSelect) {
                     const typeLabels = {
                         'photo': 'Photo',
+                        'Visuel': 'Visuel',
                         'illustration': 'Illustration',
                         'graphique': 'Graphique',
                         'infographie': 'Infographie',
@@ -785,27 +888,30 @@ body {
                 }
                 
             } else if (contentType === 'press') {
-                const pressSituation = document.querySelector('input[name="pressSituation"]:checked')?.value;
-                
-                if (!pressSituation) {
-                    announce('Erreur : veuillez sélectionner une situation');
-                    alert('Veuillez sélectionner si vous avez un nouveau communiqué ou un lien existant.');
-                    return;
-                }
-                
                 const pressTitle = document.getElementById('pressTitle').value;
                 const pressImageDesc = document.getElementById('pressImageDesc').value;
-                let textupLink = '';
+                const selectedTool = document.querySelector('input[name="textHostingTool"]:checked')?.value;
+                const pressSituation = document.querySelector('input[name="pressSituation"]:checked')?.value;
+                let linkField = '';
                 
                 if (pressSituation === 'new') {
-                    textupLink = document.getElementById('textupLink').value;
-                } else {
-                    textupLink = document.getElementById('existingTextupLink').value;
+                    linkField = document.getElementById('generatedLink').value;
+                } else if (pressSituation === 'existing') {
+                    linkField = document.getElementById('existingLink').value;
                 }
                 
                 description = pressImageDesc.trim() || 'Communiqué de presse';
-                if (pressTitle.trim()) description += ' intitulé "' + pressTitle.trim() + '"';
-                if (textupLink.trim()) description += '. Version accessible disponible sur : ' + textupLink.trim();
+                if (pressTitle.trim()) {
+                    description += ' intitulé "' + pressTitle.trim() + '"';
+                }
+                
+                if (linkField.trim()) {
+                    description += '. Version accessible disponible sur : ' + linkField.trim();
+                    
+                    if (selectedTool === 'grantexte' || linkField.includes('alixb-accessible.github.io/GRANTEXTE')) {
+                        description += '. Si vous consultez cette description un an après sa publication, nous tenons à votre disposition le texte entier sur simple demande';
+                    }
+                }
             }
             
             description = description.replace(/^[. ]+/, '').replace(/\. \./g, '.');
@@ -839,6 +945,8 @@ body {
                 announce('Erreur lors de la copie');
                 alert('Erreur lors de la copie.');
             });
+        });
+        
         });
     </script>
    <div style="text-align: center; margin-top: 50px; padding: 30px; background: transparent;">
